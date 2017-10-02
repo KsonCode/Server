@@ -1,5 +1,6 @@
 package service;
 
+import bean.CarEntity;
 import bean.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,6 +44,28 @@ public class UserImpl implements User {
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(userEntity);
+        transaction.commit();
+    }
+
+    /**
+     * 添加购物车
+     * @param carEntity
+     */
+    public void addCar(CarEntity carEntity) {
+        Session session = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(carEntity);
+        transaction.commit();
+    }
+
+    /**
+     * 更新购物车
+     * @param carEntity
+     */
+    public void updateCar(CarEntity carEntity) {
+        Session session = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(carEntity);
         transaction.commit();
     }
 

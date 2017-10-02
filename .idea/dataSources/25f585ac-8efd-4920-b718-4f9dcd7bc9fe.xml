@@ -1,107 +1,345 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="@localhost">
+<dataSource name="kson@localhost">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
     <root id="1"/>
-    <schema id="2" parent="1" name="kson">
+    <schema id="2" parent="1" name="information_schema"/>
+    <schema id="3" parent="1" name="mysql">
+      <Current>1</Current>
+    </schema>
+    <schema id="4" parent="1" name="performance_schema"/>
+    <schema id="5" parent="1" name="test"/>
+    <schema id="6" parent="1" name="kson">
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
-    <schema id="3" parent="1" name="information_schema"/>
-    <schema id="4" parent="1" name="mysql"/>
-    <schema id="5" parent="1" name="performance_schema"/>
-    <schema id="6" parent="1" name="test"/>
-    <table id="7" parent="2" name="ad"/>
-    <table id="8" parent="2" name="user"/>
-    <column id="9" parent="7" name="aid">
+    <table id="7" parent="6" name="ad"/>
+    <table id="8" parent="6" name="car"/>
+    <table id="9" parent="6" name="carproducts"/>
+    <table id="10" parent="6" name="catagory"/>
+    <table id="11" parent="6" name="product"/>
+    <table id="12" parent="6" name="productcatagory"/>
+    <table id="13" parent="6" name="productsubcatagory"/>
+    <table id="14" parent="6" name="seller"/>
+    <table id="15" parent="6" name="user"/>
+    <column id="16" parent="7" name="aid">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="10" parent="7" name="title">
+    <column id="17" parent="7" name="title">
       <Position>2</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="11" parent="7" name="type">
+    <column id="18" parent="7" name="type">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="12" parent="7" name="productID">
+    <column id="19" parent="7" name="productID">
       <Position>4</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="13" parent="7" name="icon">
+    <column id="20" parent="7" name="icon">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="14" parent="7" name="url">
+    <column id="21" parent="7" name="url">
       <Position>6</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="15" parent="7" name="createtime">
+    <column id="22" parent="7" name="createtime">
       <Position>7</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <key id="16" parent="7" name="PRIMARY">
+    <key id="23" parent="7" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>aid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="17" parent="8" name="uid">
+    <column id="24" parent="8" name="carid">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="18" parent="8" name="mobile">
+    <column id="25" parent="8" name="sellerid">
       <Position>2</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="8" name="password">
+    <column id="26" parent="8" name="createtime">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="27" parent="8" name="uid">
+      <Position>4</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="8" name="pid">
+      <Position>5</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="8" name="num">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="30" parent="8" name="selected">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <key id="31" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>carid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="32" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="33" parent="9" name="pid">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="9" name="sellerid">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="35" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="36" parent="10" name="cid">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="37" parent="10" name="name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="38" parent="10" name="icon">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="39" parent="10" name="ishome">
+      <Position>4</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="40" parent="10" name="createtime">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="41" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>cid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="42" parent="11" name="pid">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="43" parent="11" name="title">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="44" parent="11" name="images">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="45" parent="11" name="detail_url">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="46" parent="11" name="createtime">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="47" parent="11" name="price">
+      <Position>6</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="48" parent="11" name="subhead">
+      <Position>7</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="49" parent="11" name="pscid">
+      <Position>8</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="11" name="bargain_price">
+      <Position>9</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="51" parent="11" name="sellerid">
+      <Position>10</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="52" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>pid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="53" parent="12" name="pcid">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="54" parent="12" name="cid">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="12" name="name">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="56" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>pcid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="57" parent="13" name="pscid">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="58" parent="13" name="name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="59" parent="13" name="pcid">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="13" name="icon">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="61" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>pscid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="62" parent="14" name="sellerid">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="63" parent="14" name="name">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="14" name="description">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="65" parent="14" name="score">
+      <Position>4</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="14" name="icon">
+      <Position>5</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="67" parent="14" name="product_nums">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="68" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>sellerid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="69" parent="15" name="uid">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="70" parent="15" name="mobile">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="71" parent="15" name="password">
       <Position>3</Position>
       <DataType>varchar(40)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="20" parent="8" name="nickname">
+    <column id="72" parent="15" name="nickname">
       <Position>4</Position>
-      <DataType>varchar(40)|0</DataType>
+      <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="21" parent="8" name="username">
+    <column id="73" parent="15" name="username">
       <Position>5</Position>
       <DataType>varchar(40)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="8" name="icon">
+    <column id="74" parent="15" name="icon">
       <Position>6</Position>
       <DataType>varchar(500)|0</DataType>
     </column>
-    <column id="23" parent="8" name="gender">
+    <column id="75" parent="15" name="gender">
       <Position>7</Position>
       <DataType>tinyint(4)|0</DataType>
     </column>
-    <column id="24" parent="8" name="age">
+    <column id="76" parent="15" name="age">
       <Position>8</Position>
       <DataType>varchar(10)|0</DataType>
     </column>
-    <column id="25" parent="8" name="money">
+    <column id="77" parent="15" name="money">
       <Position>9</Position>
       <DataType>bigint(20)|0</DataType>
       <DefaultExpression>&apos;1000&apos;</DefaultExpression>
     </column>
-    <column id="26" parent="8" name="createtime">
+    <column id="78" parent="15" name="createtime">
       <Position>10</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="27" parent="8" name="token">
+    <column id="79" parent="15" name="token">
       <Position>11</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <key id="28" parent="8" name="PRIMARY">
+    <key id="80" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>uid</ColNames>
       <Primary>1</Primary>

@@ -3,8 +3,12 @@ package test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.*;
+import java.util.Enumeration;
 import java.util.UUID;
 
 public class Test {
@@ -18,8 +22,57 @@ public class Test {
 
         InetAddress addr = InetAddress.getLocalHost();
         String ip = addr.getHostAddress().toString();
-        System.out.println("ipip===" + ip);
 
 
     }
+
+
+    /**
+     * 获得内网IP
+     * @return 内网IP
+     */
+    private static String getIntranetIp(){
+        try{
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获得外网IP
+     * @return 外网IP
+     */
+    private static String getInternetIp(){
+        try{
+            Enumeration<NetworkInterface> networks = NetworkInterface.getNetworkInterfaces();
+            InetAddress ip = null;
+            Enumeration<InetAddress> addrs;
+            while (networks.hasMoreElements())
+            {
+                addrs = networks.nextElement().getInetAddresses();
+                while (addrs.hasMoreElements())
+                {
+                    ip = addrs.nextElement();
+                    if (ip != null
+                            && ip instanceof Inet4Address
+                            && ip.isSiteLocalAddress()
+                            && !ip.getHostAddress().equals(getInternetIp()))
+                    {
+                        return ip.getHostAddress();
+                    }
+                }
+            }
+
+            // 如果没有外网IP，就返回内网IP
+            return getIntranetIp();
+        } catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
+
+
+

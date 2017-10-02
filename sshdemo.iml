@@ -3,7 +3,9 @@
   <component name="FacetManager">
     <facet type="hibernate" name="Hibernate">
       <configuration>
-        <datasource-map />
+        <datasource-map>
+          <unit-entry name="sessionFactory" value="25f585ac-8efd-4920-b718-4f9dcd7bc9fe" />
+        </datasource-map>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -48,5 +50,6 @@
     <orderEntry type="library" name="org.apache.commons:commons-dbcp2:2.0" level="project" />
     <orderEntry type="library" name="org.apache.struts:struts2-spring-plugin:2.3.24" level="project" />
     <orderEntry type="library" name="org.apache.struts:struts2-json-plugin:2.3.24" level="project" />
+    <orderEntry type="library" name="javax.servlet:servlet-api:2.5" level="project" />
   </component>
 </module>
