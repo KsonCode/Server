@@ -1,6 +1,8 @@
 package service;
 
+import bean.AddrEntity;
 import bean.CarEntity;
+import bean.OrdersEntity;
 import bean.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,6 +27,29 @@ public class UserImpl implements User {
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
         session.save(user);
+        transaction.commit();
+    }
+
+
+    /**
+     * ADD ADDR
+     * @param addrEntity
+     */
+    public void addAddress(AddrEntity addrEntity) {
+        Session session = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(addrEntity);
+        transaction.commit();
+    }
+
+    /**
+     * update ADDR
+     * @param addrEntity
+     */
+    public void updateAddress(AddrEntity addrEntity) {
+        Session session = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(addrEntity);
         transaction.commit();
     }
 
@@ -83,6 +108,29 @@ public class UserImpl implements User {
         }
         System.out.println("no");
         return false;
+    }
+
+
+    /**
+     * 创建订单
+     * @param orderEntity
+     */
+    public void createOrder(OrdersEntity orderEntity) {
+        Session session = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(orderEntity);
+        transaction.commit();
+    }
+
+    /**
+     * 更新订单
+     * @param orderEntity
+     */
+    public void updateOrder(OrdersEntity orderEntity) {
+        Session session = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(orderEntity);
+        transaction.commit();
     }
 
 

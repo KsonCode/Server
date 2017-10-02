@@ -50,6 +50,24 @@
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
             </result>
         </action>
+        <!--获取地址列表哦-->
+        <action name="getAddrs" class="user" method="getAddrs">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--添加地址-->
+        <action name="addAddr" class="user" method="addAddr">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--更新地址-->
+        <action name="updateAddr" class="user" method="updateAddr">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
     </package>
 
     <package name="product" namespace="/product" extends="json-default">
@@ -92,6 +110,22 @@
         </action>
 
         <action name="updateCarts" class="product" method="updateCarts">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
+        <action name="createOrder" class="product" method="createOrder">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <action name="updateOrder" class="product" method="updateOrder">
+        <result type="json">
+            <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+        </result>
+    </action>
+        <action name="getOrders" class="product" method="getOrders">
             <result type="json">
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
             </result>

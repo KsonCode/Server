@@ -24,6 +24,35 @@ public class ProductAction extends ActionSupport {
     private String num ;
     private String selected ;
 
+    //订单
+    private String price;
+    private String orderId;
+    private int status;
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
     public void setSelected(String selected) {
         this.selected = selected;
     }
@@ -452,5 +481,120 @@ public class ProductAction extends ActionSupport {
         }
         return  null;
 
+    }
+
+
+    /**
+     * 创建订单
+     *
+     * @return
+     */
+    public String createOrder() {
+        jsonData = new HashMap<>();
+
+        if (uid==null){
+            jsonData.put("msg","用户未登录或用户id为空");
+            jsonData.put("code","1");
+
+            return SUCCESS;
+        }
+        if (price==null){
+            jsonData.put("msg","实付价格不能为空");
+            jsonData.put("code","1");
+
+            return SUCCESS;
+        }
+
+        OrdersEntity orderEntity  = new OrdersEntity();
+        orderEntity.setPrice(Double.parseDouble(price));
+        orderEntity.setUid(Long.parseLong(uid));
+        orderEntity.setStatus(0);
+
+        getUser().createOrder(orderEntity);
+
+
+        jsonData.put("msg", "订单创建成功");
+        jsonData.put("code", "0");
+
+
+        uid = null;
+        price = null;
+
+        return SUCCESS;
+
+
+    }
+
+    /**
+     * 更新订单
+     *
+     * @return
+     */
+    public String updateOrder() {
+        jsonData = new HashMap<>();
+
+        if (uid==null){
+            jsonData.put("msg","用户未登录或用户id为空");
+            jsonData.put("code","1");
+
+            return SUCCESS;
+        }
+        if (orderId==null){
+            jsonData.put("msg","订单id不能为空");
+            jsonData.put("code","1");
+
+            return SUCCESS;
+        }
+
+        List<OrdersEntity> orderEntityList = getUser().getSf().openSession().createQuery("from OrdersEntity where orderid = '" + orderId + "'").list();
+
+
+        if (orderEntityList!=null&&orderEntityList.size()>0){
+
+            OrdersEntity orderEntity = orderEntityList.get(0);
+            if (orderEntity!=null){
+                orderEntity.setStatus(status);
+                getUser().updateOrder(orderEntity);
+
+                jsonData.put("msg", "订单状态修改成功");
+                jsonData.put("code", "0");
+            }
+
+        }
+
+        uid = null;
+        status = 0;
+
+        return SUCCESS;
+
+
+    }
+
+    /**
+     * 获取某分类下的商品列表
+     * @return
+     */
+    public String getOrders(){
+        jsonData = new HashMap<>();
+        if (uid==null){
+
+            jsonData.put("code","1");
+            jsonData.put("msg","用户id不能为空");
+
+            return SUCCESS;
+
+        }
+
+        List<OrdersEntity> ordersEntities = getUser().getSf().openSession().createQuery("from OrdersEntity where uid = '" + uid + "'").list();
+
+
+        if(ordersEntities!=null){
+            jsonData.put("code","0");
+            jsonData.put("msg","请求成功");
+            jsonData.put("data",ordersEntities);
+
+        }
+        uid = null;
+        return SUCCESS;
     }
 }

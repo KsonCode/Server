@@ -1,17 +1,15 @@
 package action;
 
+import bean.AddrEntity;
 import bean.UserEntity;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.util.ServletContextAware;
 import service.UserImpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.rmi.server.UID;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +30,43 @@ public class UserAction extends ActionSupport {
     private Map<String, Object> jsonData;
 
     private String nickname;
+
+    private String name;
+    private String addr;
+    private String status;
+    private String addrid;
+
+    public void setAddrid(String addrid) {
+        this.addrid = addrid;
+    }
+
+    public String getAddrid() {
+        return addrid;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
 
     public void setUser(UserImpl user) {
         this.user = user;
@@ -320,6 +355,155 @@ public class UserAction extends ActionSupport {
         file = null;
         uid = null;
         return SUCCESS;
+
+    }
+
+    /**
+     * 增加地址i
+     *
+     * @return
+     */
+    public String addAddr() {
+        jsonData = new HashMap<>();
+
+        if (uid==null) {
+            jsonData.put("code","1");
+            jsonData.put("msg","用户id不能为空");
+            return SUCCESS;
+
+        }
+        if (addr==null) {
+            jsonData.put("code","1");
+            jsonData.put("msg","详细地址不能为空");
+            return SUCCESS;
+        }
+        if (mobile==null) {
+            jsonData.put("code","1");
+            jsonData.put("msg","手机号不能为空");
+            return SUCCESS;
+        }
+
+        if (name==null) {
+            jsonData.put("code","1");
+            jsonData.put("msg","姓名不能为空");
+            return SUCCESS;
+        }
+
+        AddrEntity addrEntity = new AddrEntity();
+
+                addrEntity.setAddr(addr);
+                addrEntity.setMobile(Long.parseLong(mobile));
+                addrEntity.setName(name);
+                addrEntity.setStatus(0);
+                addrEntity.setUid(Long.parseLong(uid));
+                getUser().addAddress(addrEntity);
+
+
+                jsonData.put("msg", "添加成功");
+                jsonData.put("code", "0");
+                jsonData.put("data", addrEntity);
+
+
+        uid =null;
+        addr = null;
+        mobile = null;
+        name = null;
+
+
+        return SUCCESS;
+
+
+    }
+
+    /**
+     * xiugai地址i
+     *
+     * @return
+     */
+    public String updateAddr() {
+        jsonData = new HashMap<>();
+
+        if (uid==null) {
+            jsonData.put("code","1");
+            jsonData.put("msg","用户id不能为空");
+            return SUCCESS;
+        }
+
+        if (addrid==null) {
+            jsonData.put("code","1");
+            jsonData.put("msg","地址id不能为空");
+            return SUCCESS;
+        }
+
+        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "' and addrid = '"+addrid+"'").list();
+
+        if (list!=null&&list.size()>0){
+            AddrEntity addrEntity = list.get(0);
+            if (status!=null){
+                if (status.equals("1")){
+                    addrEntity.setStatus(Integer.parseInt(status));
+                }
+
+            }
+            if (addr!=null){
+                addrEntity.setAddr(addr);
+            }
+            if (mobile!=null){
+                addrEntity.setMobile(Integer.parseInt(mobile));
+            }
+
+            if (name!=null){
+                addrEntity.setName(name);
+            }
+            getUser().updateAddress(addrEntity);
+            jsonData.put("msg", "更新成功");
+            jsonData.put("code", "0");
+            jsonData.put("data", addrEntity);
+
+        }
+
+
+
+
+        uid =null;
+        addr = null;
+        mobile = null;
+        name = null;
+
+
+        return SUCCESS;
+
+
+    }
+
+    /**
+     * xiugai地址i
+     *
+     * @return
+     */
+    public String getAddrs() {
+        jsonData = new HashMap<>();
+
+        if (uid==null) {
+            jsonData.put("code","1");
+            jsonData.put("msg","用户id不能为空");
+            return SUCCESS;
+        }
+
+        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
+
+        if (list!=null){
+
+            jsonData.put("msg", "地址列表请求成功");
+            jsonData.put("code", "0");
+            jsonData.put("data", list);
+
+        }
+
+        uid =null;
+
+        return SUCCESS;
+
 
     }
 

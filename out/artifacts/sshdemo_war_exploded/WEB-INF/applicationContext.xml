@@ -38,6 +38,8 @@
                 <value>bean.SellerEntity</value>
                 <value>bean.ProductEntity</value>
                 <value>bean.CarEntity</value>
+                <value>bean.OrdersEntity</value>
+                <value>bean.AddrEntity</value>
             </list>
         </property>
 
