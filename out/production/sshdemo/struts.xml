@@ -90,6 +90,12 @@
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
             </result>
         </action>
+
+        <action name="updateCarts" class="product" method="updateCarts">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
     </package>
 
     <package name="ad" namespace="/ad" extends="json-default">

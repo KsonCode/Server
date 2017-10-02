@@ -21,7 +21,16 @@ public class ProductAction extends ActionSupport {
     private String  pscid;
     private String uid;
     private String sellerid;
-    private int num = 1;
+    private String num ;
+    private String selected ;
+
+    public void setSelected(String selected) {
+        this.selected = selected;
+    }
+
+    public String getSelected() {
+        return selected;
+    }
 
     public void setJsonData(Map<String, Object> jsonData) {
         this.jsonData = jsonData;
@@ -79,11 +88,11 @@ public class ProductAction extends ActionSupport {
         return sellerid;
     }
 
-    public void setNum(int num) {
+    public void setNum(String num) {
         this.num = num;
     }
 
-    public int getNum() {
+    public String getNum() {
         return num;
     }
 
@@ -294,20 +303,120 @@ public class ProductAction extends ActionSupport {
 
                 Cart cart = new Cart();
                 cart.setSellerName(getCartName(String.valueOf(carEntity.getSellerid())));
+                cart.setSellerid(String.valueOf(carEntity.getSellerid()));
 
                 System.out.println("CAR:"+carEntity.getSellerid());
 
+                List<Product> productEntityList = new ArrayList<>();
 
+
+                List<CarEntity> carEntityList1 = getUser().getSf().openSession().createQuery("from CarEntity where sellerid = '" + carEntity.getSellerid() + "' and uid = '"+uid+"'").list();
+
+
+                for (CarEntity entity : carEntityList1) {
+
+                    System.out.println("selleid"+entity.getSellerid());
+                    System.out.println("pid:"+entity.getPid());
+                    ProductEntity productEntity = getProduct(String.valueOf(entity.getPid()));
+                    Product product = new Product();
+                    product.setBargainPrice(productEntity.getBargainPrice());
+                    product.setCreatetime(productEntity.getCreatetime());
+                    product.setDetailUrl(productEntity.getDetailUrl());
+                    product.setImages(productEntity.getImages());
+                    product.setNum(entity.getNum());
+                    product.setPid(entity.getPid());
+                    product.setPrice(productEntity.getPrice());
+                    product.setPscid(productEntity.getPscid());
+                    product.setSelected(entity.getSelected());
+                    product.setSellerid(productEntity.getSellerid());
+                    product.setSubhead(productEntity.getSubhead());
+                    product.setTitle(productEntity.getTitle());
+
+                    productEntityList.add(product);
+
+                }
+
+                cart.setList(productEntityList);
                 cartList.add(cart);
 
             }
 
-            jsonData.put("code","0");
-            jsonData.put("msg","请求成功");
-            jsonData.put("data",cartList);
+
+            if (cartList!=null){
+                jsonData.put("code","0");
+                jsonData.put("msg","请求成功");
+                jsonData.put("data",cartList);
+                return SUCCESS;
+            }
+
+
 
         }
-       uid = null;
+
+
+
+
+        uid = null;
+        jsonData = null;
+        return SUCCESS;
+    }
+
+
+    /**
+     * 更新购物车
+     * @return
+     */
+    public String updateCarts(){
+
+        jsonData = new HashMap<>();
+
+        if (uid==null){
+            jsonData.put("msg","用户未登录或用户id为空");
+            jsonData.put("code","1");
+
+            return SUCCESS;
+        }
+        if (pid==null){
+            jsonData.put("msg","商品id不能为空");
+            jsonData.put("code","1");
+
+            return SUCCESS;
+        }
+
+        if (sellerid==null){
+            jsonData.put("msg","商家id不能为空");
+            jsonData.put("code","1");
+            return SUCCESS;
+        }
+        if (selected==null){
+            jsonData.put("msg","选中状态不能为空");
+            jsonData.put("code","1");
+            return SUCCESS;
+        }
+        if (num==null){
+            jsonData.put("msg","商品数量不能为空");
+            jsonData.put("code","1");
+            return SUCCESS;
+        }
+
+
+        List<CarEntity> carEntityList = getUser().getSf().openSession().createQuery("from CarEntity where sellerid = '" + sellerid + "' and uid = '"+uid+"' and pid = '"+pid+"'").list();
+
+        if (carEntityList!=null&&carEntityList.size()>0){
+
+            CarEntity carEntity = carEntityList.get(0);
+            if (carEntity!=null){
+                carEntity.setNum(Integer.parseInt(num));
+                carEntity.setSelected(Integer.parseInt(selected));
+
+                getUser().updateCar(carEntity);
+                jsonData.put("code","0");
+                jsonData.put("msg","success");
+
+            }
+        }
+
+
         return SUCCESS;
     }
 
@@ -327,7 +436,21 @@ public class ProductAction extends ActionSupport {
 
             return name;
         }
-return  name;
+            return  name;
+
+    }
+
+    /**
+     * 获取商品详情
+     * @param id
+     */
+    private ProductEntity getProduct(String  id){
+        List<ProductEntity> productEntityList = getUser().getSf().openSession().createQuery("from ProductEntity where pid = '" + id + "'").list();
+
+        if (productEntityList!=null&&productEntityList.size()>0){
+            return productEntityList.get(0);
+        }
+        return  null;
 
     }
 }

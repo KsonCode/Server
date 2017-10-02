@@ -6,7 +6,7 @@ import java.util.List;
 public class Cart implements Serializable{
     private String sellerName;
     private String sellerid;
-    private List<ProductEntity> list;
+    private List<Product> list;
 
 
     public String getSellerName() {
@@ -25,11 +25,11 @@ public class Cart implements Serializable{
         this.sellerid = sellerid;
     }
 
-    public List<ProductEntity> getList() {
+    public List<Product> getList() {
         return list;
     }
 
-    public void setList(List<ProductEntity> list) {
+    public void setList(List<Product> list) {
         this.list = list;
     }
 }

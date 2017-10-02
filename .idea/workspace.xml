@@ -7,145 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4390c77-7c53-4bd7-bf72-0ce1a6f33592" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/servlet-api-2.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/action/AdAction.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/action/ProductAction.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/action/UserAction.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/AdEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/CarEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/Cart.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/CatagoryEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/ProductCatagory.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/ProductEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/ProductcatagoryEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/ProductsubcatagoryEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/SellerEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/bean/UserEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/service/User.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/service/UserImpl.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/test/Test.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/test/TestService.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/utils/HibernateUtils.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/antlr-2.7.7.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/aopalliance-1.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/asm-3.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/asm-commons-3.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/asm-tree-3.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/classmate-1.3.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-dbcp2-2.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-fileupload-1.3.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-io-2.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-lang3-3.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-logging-1.1.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-logging-1.1.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-logging-1.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/commons-pool2-2.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/dom4j-1.6.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/freemarker-2.3.22.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/hibernate-commons-annotations-5.0.1.Final.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/hibernate-core-5.2.11.Final.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/jandex-2.0.3.Final.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/javassist-3.11.0.GA.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/javassist-3.20.0-GA.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/jboss-logging-3.3.0.Final.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/mysql-connector-java-5.1.41-bin.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/ognl-3.0.6.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/servlet-api-2.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-aop-3.0.5.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-aop-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-asm-3.0.5.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-aspects-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-beans-3.0.5.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-beans-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-context-3.0.5.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-context-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-context-support-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-core-3.0.5.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-core-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-expression-3.0.5.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-expression-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-instrument-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-instrument-tomcat-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-jdbc-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-jms-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-messaging-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-orm-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-oxm-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-test-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-tx-4.3.10.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/spring-web-3.0.5.RELEASE.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/struts2-core-2.3.24.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/struts2-json-plugin-2.3.24.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/struts2-spring-plugin-2.3.24.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/lib/xwork-core-2.3.24.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506684428592" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506686060608" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506686468420" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506686514827" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506686564780" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506687562233" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506688593389" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506691617780" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506732324936" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506733693389.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506734023873" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506734145405" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/1506734407186upload_6fdb1a20_bd62_48e5_9b70_c2bedc609592_00000001.tmp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/kson.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/upload_43d51365_4138_4059_8cca_cb6eb4126ba2_00000000.tmp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/upload_d3a6d094_e371_46b6_8e75_7ee6c66c572d_00000000.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/images/upload_f12f3036_c163_452b_b825_45d32856146b_00000021.tmp.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/action/AdAction.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/action/ProductAction.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/action/UserAction.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/AdEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/CarEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/Cart.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/CatagoryEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/ProductCatagory.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/ProductEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/ProductcatagoryEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/ProductsubcatagoryEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/SellerEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/bean/UserEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/service/User.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/service/UserImpl.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/test/Test.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/test/TestService.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/utils/HibernateUtils.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_servlet_servlet_api_2_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/applicationContext.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/classes/struts.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/WEB-INF/web.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/index.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/artifacts/sshdemo_war_exploded/success.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/sshdemo/struts.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/CarEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/Cart.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/CatagoryEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/ProductCatagory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/ProductEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/ProductcatagoryEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/ProductsubcatagoryEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/SellerEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/sshdemo_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/sshdemo_war_exploded.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/25f585ac-8efd-4920-b718-4f9dcd7bc9fe.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/25f585ac-8efd-4920-b718-4f9dcd7bc9fe.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bean/Product.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/action/ProductAction.java" afterPath="$PROJECT_DIR$/src/action/ProductAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/action/UserAction.java" afterPath="$PROJECT_DIR$/src/action/UserAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/service/UserImpl.java" afterPath="$PROJECT_DIR$/src/service/UserImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bean/CarEntity.java" afterPath="$PROJECT_DIR$/src/bean/CarEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bean/Cart.java" afterPath="$PROJECT_DIR$/src/bean/Cart.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/struts.xml" afterPath="$PROJECT_DIR$/src/struts.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Test.java" afterPath="$PROJECT_DIR$/src/test/Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sshdemo.iml" afterPath="$PROJECT_DIR$/sshdemo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/applicationContext.xml" afterPath="$PROJECT_DIR$/web/WEB-INF/applicationContext.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -198,11 +65,53 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductAction.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ProductAction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/action/ProductAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4465">
-              <caret line="277" column="23" lean-forward="false" selection-start-line="277" selection-start-column="23" selection-end-line="277" selection-end-column="23" />
+            <state relative-caret-position="177">
+              <caret line="396" column="36" lean-forward="false" selection-start-line="396" selection-start-column="36" selection-end-line="396" selection-end-column="36" />
+              <folding>
+                <element signature="e#687#688#0" expanded="true" />
+                <element signature="e#727#728#0" expanded="true" />
+                <element signature="e#762#763#0" expanded="true" />
+                <element signature="e#793#794#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CarEntity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/bean/CarEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="97">
+              <caret line="72" column="16" lean-forward="false" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
+              <folding>
+                <element signature="e#577#578#0" expanded="true" />
+                <element signature="e#608#609#0" expanded="true" />
+                <element signature="e#654#655#0" expanded="true" />
+                <element signature="e#694#695#0" expanded="true" />
+                <element signature="e#1357#1358#0" expanded="true" />
+                <element signature="e#1387#1388#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/UserImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="53" column="45" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Product.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/bean/Product.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -214,18 +123,6 @@
             <state relative-caret-position="380">
               <caret line="20" column="4" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProductCatagory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/bean/ProductCatagory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-              <folding>
-                <element signature="e#301#302#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -242,45 +139,9 @@
       <file leaf-file-name="Cart.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bean/Cart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="6" column="29" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="29" />
-              <folding>
-                <element signature="e#245#246#0" expanded="true" />
-                <element signature="e#278#279#0" expanded="true" />
-                <element signature="e#330#331#0" expanded="true" />
-                <element signature="e#374#375#0" expanded="true" />
-                <element signature="e#409#410#0" expanded="true" />
-                <element signature="e#440#441#0" expanded="true" />
-                <element signature="e#488#489#0" expanded="true" />
-                <element signature="e#528#529#0" expanded="true" />
-                <element signature="e#572#573#0" expanded="true" />
-                <element signature="e#599#600#0" expanded="true" />
-                <element signature="e#652#653#0" expanded="true" />
-                <element signature="e#684#685#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProductEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/bean/ProductEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+            <state relative-caret-position="380">
+              <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CarEntity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/bean/CarEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="781">
-              <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
-              <folding>
-                <element signature="e#1168#1169#0" expanded="true" />
-                <element signature="e#1198#1199#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -288,13 +149,23 @@
       <file leaf-file-name="struts.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/struts.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1653">
-              <caret line="87" column="64" lean-forward="false" selection-start-line="87" selection-start-column="64" selection-end-line="87" selection-end-column="64" />
+            <state relative-caret-position="147">
+              <caret line="93" column="72" lean-forward="true" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
               <folding />
             </state>
           </provider>
           <provider editor-type-id="com.intellij.struts2.graph.fileEditor.Struts2GraphFileEditorProvider">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductEntity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/bean/ProductEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -326,11 +197,12 @@
         <option value="$PROJECT_DIR$/src/bean/ProductCatagory.java" />
         <option value="$PROJECT_DIR$/src/action/UserAction.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/25f585ac-8efd-4920-b718-4f9dcd7bc9fe/console.sql" />
+        <option value="$PROJECT_DIR$/src/bean/Product.java" />
+        <option value="$PROJECT_DIR$/src/bean/ProductEntity.java" />
+        <option value="$PROJECT_DIR$/src/bean/Cart.java" />
         <option value="$PROJECT_DIR$/src/service/UserImpl.java" />
         <option value="$PROJECT_DIR$/src/struts.xml" />
-        <option value="$PROJECT_DIR$/src/bean/Cart.java" />
         <option value="$PROJECT_DIR$/src/action/ProductAction.java" />
-        <option value="$PROJECT_DIR$/src/bean/ProductEntity.java" />
       </list>
     </option>
   </component>
@@ -357,7 +229,7 @@
     <option name="x" value="60" />
     <option name="y" value="11" />
     <option name="width" value="1262" />
-    <option name="height" value="791" />
+    <option name="height" value="947" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -686,12 +558,12 @@
       <workItem from="1506877973061" duration="224000" />
       <workItem from="1506878389981" duration="13950000" />
       <workItem from="1506935394079" duration="263000" />
-      <workItem from="1506935829440" duration="343000" />
+      <workItem from="1506935829440" duration="6036000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71200000" />
+    <option name="totallyTimeSpent" value="76893000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -703,7 +575,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="11" width="1262" height="791" extended-state="0" />
+    <frame x="60" y="11" width="1262" height="947" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -711,23 +584,23 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19384359" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17304492" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32841328" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.58143073" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5805658" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32841328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44748858" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.57687575" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32841328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32841328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32724506" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26206324" sideWeight="0.31900454" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26206324" sideWeight="0.68099546" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11562116" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29118136" sideWeight="0.32267442" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29118136" sideWeight="0.6773256" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -751,16 +624,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/action/AdAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1026,13 +889,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/UserImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="42" column="33" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://table:/14355d90/25f585ac-8efd-4920-b718-4f9dcd7bc9fe/kson.user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1047,58 +903,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/struts.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1653">
-          <caret line="87" column="64" lean-forward="false" selection-start-line="87" selection-start-column="64" selection-end-line="87" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.struts2.graph.fileEditor.Struts2GraphFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/bean/ProductCatagory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
           <folding>
             <element signature="e#301#302#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/14355d90/25f585ac-8efd-4920-b718-4f9dcd7bc9fe/kson.seller">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/14355d90/25f585ac-8efd-4920-b718-4f9dcd7bc9fe/kson.car">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bean/Cart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="6" column="29" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="29" />
-          <folding>
-            <element signature="e#245#246#0" expanded="true" />
-            <element signature="e#278#279#0" expanded="true" />
-            <element signature="e#330#331#0" expanded="true" />
-            <element signature="e#374#375#0" expanded="true" />
-            <element signature="e#409#410#0" expanded="true" />
-            <element signature="e#440#441#0" expanded="true" />
-            <element signature="e#488#489#0" expanded="true" />
-            <element signature="e#528#529#0" expanded="true" />
-            <element signature="e#572#573#0" expanded="true" />
-            <element signature="e#599#600#0" expanded="true" />
-            <element signature="e#652#653#0" expanded="true" />
-            <element signature="e#684#685#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1111,38 +921,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/action/ProductAction.java">
+    <entry file="file://$PROJECT_DIR$/src/bean/SellerEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4465">
-          <caret line="277" column="23" lean-forward="false" selection-start-line="277" selection-start-column="23" selection-end-line="277" selection-end-column="23" />
+        <state relative-caret-position="-1077">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bean/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bean/ProductEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        <state relative-caret-position="76">
+          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bean/Cart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/14355d90/25f585ac-8efd-4920-b718-4f9dcd7bc9fe/kson.seller">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/UserImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="53" column="45" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/14355d90/25f585ac-8efd-4920-b718-4f9dcd7bc9fe/kson.car">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/struts.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="93" column="72" lean-forward="true" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.struts2.graph.fileEditor.Struts2GraphFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bean/CarEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+        <state relative-caret-position="97">
+          <caret line="72" column="16" lean-forward="false" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
           <folding>
-            <element signature="e#1168#1169#0" expanded="true" />
-            <element signature="e#1198#1199#0" expanded="true" />
+            <element signature="e#577#578#0" expanded="true" />
+            <element signature="e#608#609#0" expanded="true" />
+            <element signature="e#654#655#0" expanded="true" />
+            <element signature="e#694#695#0" expanded="true" />
+            <element signature="e#1357#1358#0" expanded="true" />
+            <element signature="e#1387#1388#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bean/SellerEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/action/ProductAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1077">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="177">
+          <caret line="396" column="36" lean-forward="false" selection-start-line="396" selection-start-column="36" selection-end-line="396" selection-end-column="36" />
+          <folding>
+            <element signature="e#687#688#0" expanded="true" />
+            <element signature="e#727#728#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#793#794#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

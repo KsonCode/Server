@@ -12,6 +12,7 @@ public class CarEntity {
     private long uid;
     private long pid;
     private Integer num;
+    private int selected;
 
     @Id
     @Column(name = "carid")
@@ -73,6 +74,16 @@ public class CarEntity {
         this.num = num;
     }
 
+    @Basic
+    @Column(name = "selected")
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,6 +95,7 @@ public class CarEntity {
         if (sellerid != carEntity.sellerid) return false;
         if (uid != carEntity.uid) return false;
         if (pid != carEntity.pid) return false;
+        if (selected != carEntity.selected) return false;
         if (createtime != null ? !createtime.equals(carEntity.createtime) : carEntity.createtime != null) return false;
         if (num != null ? !num.equals(carEntity.num) : carEntity.num != null) return false;
 
@@ -98,6 +110,7 @@ public class CarEntity {
         result = 31 * result + (int) (uid ^ (uid >>> 32));
         result = 31 * result + (int) (pid ^ (pid >>> 32));
         result = 31 * result + (num != null ? num.hashCode() : 0);
+        result = 31 * result + selected;
         return result;
     }
 }
