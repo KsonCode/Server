@@ -1,11 +1,15 @@
 package action;
 
 import bean.AdEntity;
+import bean.ProductEntity;
 import bean.UserEntity;
+import bean.ad.BAdBean;
+import bean.ad.MAdBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.query.Query;
 import service.UserImpl;
 
 import java.io.File;
@@ -38,18 +42,54 @@ public class AdAction extends ActionSupport {
 
     public String getAd() {
         jsonData = new HashMap<>();
+        System.out.println("===============获取首页广告请求===============");
+
         List<AdEntity> list = getUser().getSf().openSession().createQuery("from AdEntity ").list();
         if (list != null) {
             jsonData.put("code", "0");
             jsonData.put("msg", "");
             jsonData.put("data", list);
+
         }
+
+        String m = "39";
+        String t = "40";
+        MAdBean mAdBean = new MAdBean();
+        mAdBean.setName("京东秒杀");
+        mAdBean.setTime(1000 * 10 * 60 * 12);
+        String sql = "from ProductEntity where pscid = ?";
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter(0, Long.parseLong(m));
+
+        List<ProductEntity> productEntityList = query.list();
+
+//        List<ProductEntity> productEntityList = getUser().getSf().openSession().createQuery("from ProductEntity where pscid = '39'").list();
+
+        if (productEntityList != null && productEntityList.size() > 0) {
+            mAdBean.setList(productEntityList);
+        }
+        jsonData.put("miaosha", mAdBean);
+
+        BAdBean bAdBean = new BAdBean();
+        bAdBean.setName("为你推荐");
+
+        String sql2 = "from ProductEntity where pscid = ?";
+        Query query1 = getUser().getSf().openSession().createQuery(sql2);
+        query1.setParameter(0, Long.parseLong(t));
+        List<ProductEntity> productEntityList1 = query1.list();
+
+//        List<ProductEntity> productEntityList1 = getUser().getSf().openSession().createQuery("from ProductEntity where pscid = '40'").list();
+
+        if (productEntityList1 != null && productEntityList1.size() > 0) {
+            bAdBean.setList(productEntityList1);
+        }
+        jsonData.put("tuijian", bAdBean);
+
+        System.out.println("===============获取首页广告成功===============");
+
 
         return SUCCESS;
     }
-
-
-
 
 
 }

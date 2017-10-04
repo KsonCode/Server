@@ -36,10 +36,10 @@
                 <value>bean.ProductcatagoryEntity</value>
                 <value>bean.ProductsubcatagoryEntity</value>
                 <value>bean.SellerEntity</value>
-                <value>bean.ProductEntity</value>
                 <value>bean.CarEntity</value>
                 <value>bean.OrdersEntity</value>
                 <value>bean.AddrEntity</value>
+                <value>bean.ProductEntity</value>
             </list>
         </property>
 

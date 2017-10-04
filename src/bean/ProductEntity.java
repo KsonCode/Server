@@ -16,6 +16,7 @@ public class ProductEntity {
     private long pscid;
     private Double bargainPrice;
     private long sellerid;
+    private Integer salenum;
 
     @Id
     @Column(name = "pid")
@@ -97,41 +98,6 @@ public class ProductEntity {
         this.pscid = pscid;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProductEntity that = (ProductEntity) o;
-
-        if (pid != that.pid) return false;
-        if (Double.compare(that.price, price) != 0) return false;
-        if (pscid != that.pscid) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (images != null ? !images.equals(that.images) : that.images != null) return false;
-        if (detailUrl != null ? !detailUrl.equals(that.detailUrl) : that.detailUrl != null) return false;
-        if (createtime != null ? !createtime.equals(that.createtime) : that.createtime != null) return false;
-        if (subhead != null ? !subhead.equals(that.subhead) : that.subhead != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = (int) (pid ^ (pid >>> 32));
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (images != null ? images.hashCode() : 0);
-        result = 31 * result + (detailUrl != null ? detailUrl.hashCode() : 0);
-        result = 31 * result + (createtime != null ? createtime.hashCode() : 0);
-        temp = Double.doubleToLongBits(price);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (subhead != null ? subhead.hashCode() : 0);
-        result = 31 * result + (int) (pscid ^ (pscid >>> 32));
-        return result;
-    }
-
     @Basic
     @Column(name = "bargain_price")
     public Double getBargainPrice() {
@@ -150,5 +116,56 @@ public class ProductEntity {
 
     public void setSellerid(long sellerid) {
         this.sellerid = sellerid;
+    }
+
+    @Basic
+    @Column(name = "salenum")
+    public Integer getSalenum() {
+        return salenum;
+    }
+
+    public void setSalenum(Integer salenum) {
+        this.salenum = salenum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProductEntity that = (ProductEntity) o;
+
+        if (pid != that.pid) return false;
+        if (Double.compare(that.price, price) != 0) return false;
+        if (pscid != that.pscid) return false;
+        if (sellerid != that.sellerid) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (images != null ? !images.equals(that.images) : that.images != null) return false;
+        if (detailUrl != null ? !detailUrl.equals(that.detailUrl) : that.detailUrl != null) return false;
+        if (createtime != null ? !createtime.equals(that.createtime) : that.createtime != null) return false;
+        if (subhead != null ? !subhead.equals(that.subhead) : that.subhead != null) return false;
+        if (bargainPrice != null ? !bargainPrice.equals(that.bargainPrice) : that.bargainPrice != null) return false;
+        if (salenum != null ? !salenum.equals(that.salenum) : that.salenum != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = (int) (pid ^ (pid >>> 32));
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (images != null ? images.hashCode() : 0);
+        result = 31 * result + (detailUrl != null ? detailUrl.hashCode() : 0);
+        result = 31 * result + (createtime != null ? createtime.hashCode() : 0);
+        temp = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (subhead != null ? subhead.hashCode() : 0);
+        result = 31 * result + (int) (pscid ^ (pscid >>> 32));
+        result = 31 * result + (bargainPrice != null ? bargainPrice.hashCode() : 0);
+        result = 31 * result + (int) (sellerid ^ (sellerid >>> 32));
+        result = 31 * result + (salenum != null ? salenum.hashCode() : 0);
+        return result;
     }
 }

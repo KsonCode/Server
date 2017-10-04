@@ -6,6 +6,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.query.Query;
 import service.UserImpl;
 
 import java.io.File;
@@ -148,21 +149,23 @@ public class UserAction extends ActionSupport {
      */
     public String register() {
         jsonData = new HashMap<>();
+        System.out.println("===============用户注册请求：mobile：" + mobile + "   password：" + password + "===============");
 
-        if (mobile!=null && password!=null) {
+        if (mobile != null && password != null) {
             if (user.isExist(mobile)) {
-
                 jsonData.put("msg", "用户已注册");
                 jsonData.put("code", "1");
                 jsonData.put("data", "{}");
+                System.out.println("===============用户已注册：mobile：" + mobile + "===============");
+
 
             } else {
-
                 UserEntity userEntity = new UserEntity();
                 userEntity.setMobile(mobile);
                 userEntity.setPassword(password);
                 userEntity.setUsername(mobile);
                 user.add(userEntity);
+                System.out.println("===============用户注册成功：mobile：" + mobile + "   password：" + password + "===============");
 
                 jsonData.put("msg", "注册成功");
                 jsonData.put("code", "0");
@@ -171,9 +174,11 @@ public class UserAction extends ActionSupport {
         } else {
             jsonData.put("msg", "用户名或密码不能为空");
             jsonData.put("code", "1");
+            System.out.println("===============用户名或密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
+
         }
 
-        mobile =null;
+        mobile = null;
         password = null;
 
 
@@ -189,16 +194,23 @@ public class UserAction extends ActionSupport {
      */
     public String getUserInfo() {
         jsonData = new HashMap<>();
+        System.out.println("===============获取用户信息请求：uid：" + uid + "===============");
 
-        if (uid!=null) {
 
-            List<UserEntity> userEntityList = getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list();
-            if (userEntityList!=null){
-                if (userEntityList.size()>0){
+        if (uid != null) {
+
+            String sql = "from UserEntity where uid = ?";
+            Query query = getUser().getSf().openSession().createQuery(sql);
+            query.setParameter(0, Long.parseLong(uid));
+            List<UserEntity> userEntityList = query.list();
+//            List<UserEntity> userEntityList = getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list();
+            if (userEntityList != null) {
+                if (userEntityList.size() > 0) {
                     UserEntity userEntity = userEntityList.get(0);
 
                     System.out.println("session:" + ActionContext.getContext().getSession());
                     if (userEntity != null) {
+                        System.out.println("===============获取用户信息成功：uid：" + uid + "===============");
                         jsonData.put("code", "0");
                         jsonData.put("msg", "获取用户信息成功");
                         jsonData.put("data", userEntity);
@@ -221,26 +233,32 @@ public class UserAction extends ActionSupport {
     }
 
     /**
-     * 上传图片
+     * 修改用户昵称
      *
      * @return
      */
     public String updateNickName() {
         jsonData = new HashMap<>();
-        System.out.println("uid===="+uid);
-        if (uid==null) {
+        System.out.println("===============修改昵称请求：uid：" + uid + "   nickname：" + nickname + "===============");
+
+        if (uid == null) {
             jsonData.put("code", "1");
             jsonData.put("msg", "用户id不能为空");
             return SUCCESS;
         }
-             UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
+        String sql = "from UserEntity where uid = ?";
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter(0, Long.parseLong(uid));
+        UserEntity userEntity = (UserEntity) query.list().get(0);
+//             UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
 
-             if (userEntity!=null){
-                 userEntity.setNickname(nickname);
-                 user.update(userEntity);
-                 jsonData.put("code", "0");
-                 jsonData.put("msg", "昵称修改成功");
-             }
+        if (userEntity != null) {
+            userEntity.setNickname(nickname);
+            System.out.println("===============修改用户昵称成功：uid：" + uid + "   nickname：" + nickname + "===============");
+            user.update(userEntity);
+            jsonData.put("code", "0");
+            jsonData.put("msg", "昵称修改成功");
+        }
         uid = null;
         return SUCCESS;
 
@@ -253,37 +271,45 @@ public class UserAction extends ActionSupport {
      */
     public String login() {
         jsonData = new HashMap<>();
+        System.out.println("===============用户登录请求：mobile：" + mobile + "   password：" + password + "===============");
 
-        if (mobile!=null && password!=null) {
+        if (mobile != null && password != null) {
             //当前对象是否有记录
             List<UserEntity> list = getUser().getSf().openSession().createQuery("from UserEntity where mobile = '" + mobile + "'").list();
 
             if (list != null && list.size() > 0) {
                 UserEntity user = list.get(0);
-                System.out.println("mobile:" + mobile + " password:" + password);
                 if (mobile.equals(user.getMobile()) && user.getPassword().equals(password)) {
                     jsonData.put("code", "0");
                     jsonData.put("msg", "登录成功");
                     jsonData.put("data", user);
-
+                    System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
                 } else {
                     jsonData.put("code", "1");
                     jsonData.put("msg", "用户名或密码错误");
+                    System.out.println("===============用户名或密码错误：mobile：" + mobile + "   password：" + password + "===============");
+
                 }
             } else {
                 jsonData.put("code", "1");
                 jsonData.put("msg", "用户不存在");
+                System.out.println("===============用户不存在：mobile：" + mobile + "   password：" + password + "===============");
+
             }
         } else {
-            if (mobile==null&&password!=null) {
+            if (mobile == null && password != null) {
                 jsonData.put("msg", "用户名不能为空");
                 jsonData.put("code", "1");
+                System.out.println("===============用户名不能为空：mobile：" + mobile + "   password：" + password + "===============");
+
             }
-            if (password==null&&mobile!=null) {
+            if (password == null && mobile != null) {
                 jsonData.put("msg", "密码不能为空");
                 jsonData.put("code", "1");
-            }
+                System.out.println("===============密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
+            }
+            System.out.println("===============用户名或密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
 
         }
@@ -309,22 +335,20 @@ public class UserAction extends ActionSupport {
      */
     public String upload() {
         jsonData = new HashMap<>();
-        System.out.println("uid===="+uid);
-        System.out.println("file=======================:"+file);
+        System.out.println("===============头像上传请求：file：" + file + "   uid：" + uid + "===============");
         if (file == null) {
             jsonData.put("code", "1");
             jsonData.put("msg", "文件不能为空");
             return SUCCESS;
         }
-        if (uid==null) {
+        if (uid == null) {
             jsonData.put("code", "1");
             jsonData.put("msg", "用户id不能为空");
             return SUCCESS;
         }
 
 
-
-        String filename = String.valueOf(System.currentTimeMillis())+file.getName();
+        String filename = uid + ".tmp";
 
         String realpath = ServletActionContext.getServletContext().getRealPath("/images");
         if (file != null) {
@@ -332,11 +356,16 @@ public class UserAction extends ActionSupport {
             try {
                 String path = realpath + "/" + filename;
                 FileUtils.copyFile(file, new File(path));
-                UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
+                String sql = "from UserEntity where uid = ?";
+                Query query = getUser().getSf().openSession().createQuery(sql);
+                query.setParameter(0, Long.parseLong(uid));
+                UserEntity userEntity = (UserEntity) query.list().get(0);
+//                UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
                 userEntity.setIcon("http://120.27.23.105/images/" + filename);
                 user.update(userEntity);
                 jsonData.put("code", "0");
                 jsonData.put("msg", "文件上传成功");
+                System.out.println("===============头像上传成功：uid：" + uid + "    file：" + path + "===============");
                 return SUCCESS;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -345,6 +374,8 @@ public class UserAction extends ActionSupport {
         } else {
             jsonData.put("code", "1");
             jsonData.put("msg", "文件不能为空");
+            System.out.println("===============文件不能为空：uid：" + uid + "   file：" + file + "===============");
+
         }
         /**
          * 若要存入数据库
@@ -365,46 +396,49 @@ public class UserAction extends ActionSupport {
      */
     public String addAddr() {
         jsonData = new HashMap<>();
+        System.out.println("===============增加地址请求：uid：" + uid + "   addr：" + addr + "    mobile" + mobile + "    name：" + name + "===============");
 
-        if (uid==null) {
-            jsonData.put("code","1");
-            jsonData.put("msg","用户id不能为空");
+
+        if (uid == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "用户id不能为空");
             return SUCCESS;
 
         }
-        if (addr==null) {
-            jsonData.put("code","1");
-            jsonData.put("msg","详细地址不能为空");
+        if (addr == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "详细地址不能为空");
             return SUCCESS;
         }
-        if (mobile==null) {
-            jsonData.put("code","1");
-            jsonData.put("msg","手机号不能为空");
+        if (mobile == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "手机号不能为空");
             return SUCCESS;
         }
 
-        if (name==null) {
-            jsonData.put("code","1");
-            jsonData.put("msg","姓名不能为空");
+        if (name == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "姓名不能为空");
             return SUCCESS;
         }
 
         AddrEntity addrEntity = new AddrEntity();
 
-                addrEntity.setAddr(addr);
-                addrEntity.setMobile(Long.parseLong(mobile));
-                addrEntity.setName(name);
-                addrEntity.setStatus(0);
-                addrEntity.setUid(Long.parseLong(uid));
-                getUser().addAddress(addrEntity);
+        addrEntity.setAddr(addr);
+        addrEntity.setMobile(Long.parseLong(mobile));
+        addrEntity.setName(name);
+        addrEntity.setStatus(0);
+        addrEntity.setUid(Long.parseLong(uid));
+        getUser().addAddress(addrEntity);
+
+        System.out.println("===============添加地址成功：uid：" + uid + "===============");
+
+        jsonData.put("msg", "添加成功");
+        jsonData.put("code", "0");
+        jsonData.put("data", addrEntity);
 
 
-                jsonData.put("msg", "添加成功");
-                jsonData.put("code", "0");
-                jsonData.put("data", addrEntity);
-
-
-        uid =null;
+        uid = null;
         addr = null;
         mobile = null;
         name = null;
@@ -422,85 +456,180 @@ public class UserAction extends ActionSupport {
      */
     public String updateAddr() {
         jsonData = new HashMap<>();
+        System.out.println("===============更新地址成功：mobile：" + uid + "   addrid：" + addrid + "===============");
 
-        if (uid==null) {
-            jsonData.put("code","1");
-            jsonData.put("msg","用户id不能为空");
+        if (uid == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "用户id不能为空");
             return SUCCESS;
         }
 
-        if (addrid==null) {
-            jsonData.put("code","1");
-            jsonData.put("msg","地址id不能为空");
+        if (addrid == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "地址id不能为空");
             return SUCCESS;
         }
 
-        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "' and addrid = '"+addrid+"'").list();
+        String sql = "from AddrEntity where uid = ? and addrid = ?";
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter(0, Long.parseLong(uid));
+        query.setParameter(1, Long.parseLong(addrid));
+        List<AddrEntity> list = query.list();
+//        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "' and addrid = '"+addrid+"'").list();
 
-        if (list!=null&&list.size()>0){
+        if (list != null && list.size() > 0) {
             AddrEntity addrEntity = list.get(0);
-            if (status!=null){
-                if (status.equals("1")){
-                    addrEntity.setStatus(Integer.parseInt(status));
-                }
-
-            }
-            if (addr!=null){
+            if (addr != null) {
                 addrEntity.setAddr(addr);
             }
-            if (mobile!=null){
+            if (mobile != null) {
                 addrEntity.setMobile(Integer.parseInt(mobile));
             }
 
-            if (name!=null){
+            if (name != null) {
                 addrEntity.setName(name);
             }
             getUser().updateAddress(addrEntity);
             jsonData.put("msg", "更新成功");
             jsonData.put("code", "0");
             jsonData.put("data", addrEntity);
+            System.out.println("===============更新地址成功：uid：" + uid + "   addrid：" + addrid + "===============");
+
 
         }
-
-
-
-
-        uid =null;
+        uid = null;
         addr = null;
         mobile = null;
         name = null;
-
-
         return SUCCESS;
 
 
     }
 
     /**
-     * xiugai地址i
+     * 设为默认
+     *
+     * @return
+     */
+    public String setAddr() {
+        jsonData = new HashMap<>();
+        System.out.println("===============设为默认地址请求：uid：" + uid + "   addrid：" + addrid + "===============");
+
+        if (uid == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "用户id不能为空");
+            return SUCCESS;
+        }
+
+        if (addrid == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "地址id不能为空");
+            return SUCCESS;
+        }
+
+        String sql = "from AddrEntity where uid = ?";
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter(0, Long.parseLong(uid));
+        List<AddrEntity> list = query.list();
+
+//        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
+
+        if (list != null && list.size() > 0) {
+            for (AddrEntity addrEntity : list) {
+
+                if (addrEntity.getAddrid() == Long.parseLong(addrid)) {
+                    addrEntity.setStatus(1);
+                } else {
+                    addrEntity.setStatus(0);
+                }
+                getUser().updateAddress(addrEntity);
+
+            }
+
+            jsonData.put("msg", "更新成功");
+            jsonData.put("code", "0");
+
+            System.out.println("===============设为默认成功：uid：" + uid + "   addrid：" + addrid + "===============");
+
+
+        }
+        uid = null;
+        addrid = null;
+        return SUCCESS;
+    }
+
+    /**
+     * 设为默认
+     *
+     * @return
+     */
+    public String getDefaultAddr() {
+        jsonData = new HashMap<>();
+        System.out.println("===============获取默认地址请求：uid：" + uid + "===============");
+
+        if (uid == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "用户id不能为空");
+            return SUCCESS;
+        }
+
+        String sql = "from AddrEntity where uid = ?";
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter(0, Long.parseLong(uid));
+        List<AddrEntity> list = query.list();
+
+//        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
+
+        if (list != null && list.size() > 0) {
+            for (AddrEntity addrEntity : list) {
+
+                if (addrEntity.getStatus() == 1) {
+                    jsonData.put("msg", "请求成功");
+                    jsonData.put("code", "0");
+                    jsonData.put("data", addrEntity);
+                    System.out.println("===============获取默认地址成功：uid：" + uid + "===============");
+
+                }
+
+
+            }
+
+
+        }
+        uid = null;
+        return SUCCESS;
+    }
+
+    /**
+     * 常用地址列表哦
      *
      * @return
      */
     public String getAddrs() {
         jsonData = new HashMap<>();
+        System.out.println("===============常用地址列表请求：uid：" + uid + "===============");
 
-        if (uid==null) {
-            jsonData.put("code","1");
-            jsonData.put("msg","用户id不能为空");
+        if (uid == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "用户id不能为空");
             return SUCCESS;
         }
 
-        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
+        String sql = "from AddrEntity where uid = ?";
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter(0, Long.parseLong(uid));
+        List<AddrEntity> list = query.list();
+//        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
 
-        if (list!=null){
+        if (list != null) {
 
             jsonData.put("msg", "地址列表请求成功");
             jsonData.put("code", "0");
             jsonData.put("data", list);
-
+            System.out.println("===============地址列表请求成功：uid：" + uid + "===============");
         }
 
-        uid =null;
+        uid = null;
 
         return SUCCESS;
 

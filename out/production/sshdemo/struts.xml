@@ -68,6 +68,19 @@
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
             </result>
         </action>
+        <!--默认地址-->
+        <action name="setAddr" class="user" method="setAddr">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--获取默认地址-->
+        <action name="getDefaultAddr" class="user" method="getDefaultAddr">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
     </package>
 
     <package name="product" namespace="/product" extends="json-default">
@@ -126,6 +139,12 @@
         </result>
     </action>
         <action name="getOrders" class="product" method="getOrders">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--搜索商品-->
+        <action name="searchProducts" class="product" method="searchProducts">
             <result type="json">
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
             </result>
