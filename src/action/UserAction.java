@@ -153,7 +153,7 @@ public class UserAction extends ActionSupport {
 
         if (mobile != null && password != null) {
             if (user.isExist(mobile)) {
-                jsonData.put("msg", "用户已注册");
+                jsonData.put("msg", "天呢！用户已注册");
                 jsonData.put("code", "1");
                 jsonData.put("data", "{}");
                 System.out.println("===============用户已注册：mobile：" + mobile + "===============");
@@ -172,7 +172,7 @@ public class UserAction extends ActionSupport {
                 jsonData.put("data", userEntity);
             }
         } else {
-            jsonData.put("msg", "用户名或密码不能为空");
+            jsonData.put("msg", "天呢！用户名或密码不能为空");
             jsonData.put("code", "1");
             System.out.println("===============用户名或密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
@@ -222,7 +222,7 @@ public class UserAction extends ActionSupport {
 
         } else {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户名不能为空");
+            jsonData.put("msg", "天呢！用户名不能为空");
         }
 
         uid = null;
@@ -243,7 +243,7 @@ public class UserAction extends ActionSupport {
 
         if (uid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户id不能为空");
+            jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
         String sql = "from UserEntity where uid = ?";
@@ -286,25 +286,25 @@ public class UserAction extends ActionSupport {
                     System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
                 } else {
                     jsonData.put("code", "1");
-                    jsonData.put("msg", "用户名或密码错误");
+                    jsonData.put("msg", "天呢！用户名或密码错误");
                     System.out.println("===============用户名或密码错误：mobile：" + mobile + "   password：" + password + "===============");
 
                 }
             } else {
                 jsonData.put("code", "1");
-                jsonData.put("msg", "用户不存在");
+                jsonData.put("msg", "天呢！用户不存在");
                 System.out.println("===============用户不存在：mobile：" + mobile + "   password：" + password + "===============");
 
             }
         } else {
             if (mobile == null && password != null) {
-                jsonData.put("msg", "用户名不能为空");
+                jsonData.put("msg", "天呢！用户名不能为空");
                 jsonData.put("code", "1");
                 System.out.println("===============用户名不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
             }
             if (password == null && mobile != null) {
-                jsonData.put("msg", "密码不能为空");
+                jsonData.put("msg", "天呢！密码不能为空");
                 jsonData.put("code", "1");
                 System.out.println("===============密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
@@ -335,15 +335,15 @@ public class UserAction extends ActionSupport {
      */
     public String upload() {
         jsonData = new HashMap<>();
-        System.out.println("===============头像上传请求：file：" + file + "   uid：" + uid + "===============");
+        System.out.println("===============头像上传请求：fileName：" + file.getName() + "   uid：" + uid + "===============");
         if (file == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "文件不能为空");
+            jsonData.put("msg", "天呢！文件不能为空");
             return SUCCESS;
         }
         if (uid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户id不能为空");
+            jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
 
@@ -373,7 +373,7 @@ public class UserAction extends ActionSupport {
 
         } else {
             jsonData.put("code", "1");
-            jsonData.put("msg", "文件不能为空");
+            jsonData.put("msg", "天呢！文件不能为空");
             System.out.println("===============文件不能为空：uid：" + uid + "   file：" + file + "===============");
 
         }
@@ -401,24 +401,24 @@ public class UserAction extends ActionSupport {
 
         if (uid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户id不能为空");
+            jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
 
         }
         if (addr == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "详细地址不能为空");
+            jsonData.put("msg", "天呢！详细地址不能为空");
             return SUCCESS;
         }
         if (mobile == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "手机号不能为空");
+            jsonData.put("msg", "天呢！手机号不能为空");
             return SUCCESS;
         }
 
         if (name == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "姓名不能为空");
+            jsonData.put("msg", "天呢！姓名不能为空");
             return SUCCESS;
         }
 
@@ -460,13 +460,13 @@ public class UserAction extends ActionSupport {
 
         if (uid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户id不能为空");
+            jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
 
         if (addrid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "地址id不能为空");
+            jsonData.put("msg", "天呢！地址id不能为空");
             return SUCCESS;
         }
 
@@ -517,13 +517,13 @@ public class UserAction extends ActionSupport {
 
         if (uid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户id不能为空");
+            jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
 
         if (addrid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "地址id不能为空");
+            jsonData.put("msg", "天呢！地址id不能为空");
             return SUCCESS;
         }
 
@@ -569,7 +569,7 @@ public class UserAction extends ActionSupport {
 
         if (uid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户id不能为空");
+            jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
 
@@ -611,7 +611,7 @@ public class UserAction extends ActionSupport {
 
         if (uid == null) {
             jsonData.put("code", "1");
-            jsonData.put("msg", "用户id不能为空");
+            jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
 

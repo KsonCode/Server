@@ -4,14 +4,28 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
+
+
 <struts>
+
+
     <!-- struts的action配置文件 -->
     <!-- 将action托管给spring -->
     <constant name="struts.objectFactory" value="spring" />
 
+    <!--如果action不存在，则跳转到默认action-->
+    <package name="default" namespace="/" extends="json-default">
+        <default-action-ref name="notFound" />
+        <action name="notFound" class="notFound" method="notFound">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
+    </package>
     <!-- 所有的action都应该放在对应的package下 -->
     <!--action的class属性不再是具体的类,而是spring配置文件配置的bean id  pakage name 貌似不起作用-->
-    <package name="base" namespace="/user" extends="json-default">
+    <package name="base" namespace="/user" extends="json-default,default">
 
         <action name="add" class="user" method="add">
             <result type="json">
@@ -83,7 +97,7 @@
 
     </package>
 
-    <package name="product" namespace="/product" extends="json-default">
+    <package name="product" namespace="/product" extends="json-default,default">
 
 
         <action name="getCatagory" class="product" method="getCatagory">
@@ -151,7 +165,7 @@
         </action>
     </package>
 
-    <package name="ad" namespace="/ad" extends="json-default">
+    <package name="ad" namespace="/ad" extends="json-default,default">
         <action name="getAd" class="ad" method="getAd">
             <result type="json">
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->

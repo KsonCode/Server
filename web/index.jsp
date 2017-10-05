@@ -7,9 +7,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>kson</title>
   </head>
   <body>
-  我是登录页面
+  hello every body!
   </body>
 </html>

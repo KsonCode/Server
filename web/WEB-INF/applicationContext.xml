@@ -63,4 +63,7 @@
     <bean id="ad" class="action.AdAction">
         <property name="user" ref="userImpl"/>
     </bean>
+
+    <bean id="notFound" class="action.NotFoundErrerAction">
+    </bean>
 </beans>
