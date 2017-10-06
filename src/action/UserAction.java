@@ -199,9 +199,9 @@ public class UserAction extends ActionSupport {
 
         if (uid != null) {
 
-            String sql = "from UserEntity where uid = ?";
+            String sql = "from UserEntity where uid = :uid";
             Query query = getUser().getSf().openSession().createQuery(sql);
-            query.setParameter(0, Long.parseLong(uid));
+            query.setParameter("uid", Long.parseLong(uid));
             List<UserEntity> userEntityList = query.list();
 //            List<UserEntity> userEntityList = getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list();
             if (userEntityList != null) {
@@ -246,9 +246,9 @@ public class UserAction extends ActionSupport {
             jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
-        String sql = "from UserEntity where uid = ?";
+        String sql = "from UserEntity where uid = :uid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(uid));
+        query.setParameter("uid", Long.parseLong(uid));
         UserEntity userEntity = (UserEntity) query.list().get(0);
 //             UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
 
@@ -274,21 +274,29 @@ public class UserAction extends ActionSupport {
         System.out.println("===============用户登录请求：mobile：" + mobile + "   password：" + password + "===============");
 
         if (mobile != null && password != null) {
+
+            String sql = "from UserEntity where mobile = :mobile";
+            Query query = getUser().getSf().openSession().createQuery(sql);
+            query.setParameter("mobile", mobile);
+            List<UserEntity> list =  query.list();
             //当前对象是否有记录
-            List<UserEntity> list = getUser().getSf().openSession().createQuery("from UserEntity where mobile = '" + mobile + "'").list();
+//            List<UserEntity> list = getUser().getSf().openSession().createQuery("from UserEntity where mobile = '" + mobile + "'").list();
 
             if (list != null && list.size() > 0) {
                 UserEntity user = list.get(0);
-                if (mobile.equals(user.getMobile()) && user.getPassword().equals(password)) {
-                    jsonData.put("code", "0");
-                    jsonData.put("msg", "登录成功");
-                    jsonData.put("data", user);
-                    System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
-                } else {
-                    jsonData.put("code", "1");
-                    jsonData.put("msg", "天呢！用户名或密码错误");
-                    System.out.println("===============用户名或密码错误：mobile：" + mobile + "   password：" + password + "===============");
+                if (user!=null){
 
+                    if (mobile.equals(user.getMobile()) && user.getPassword().equals(password)) {
+                        jsonData.put("code", "0");
+                        jsonData.put("msg", "登录成功");
+                        jsonData.put("data", user);
+                        System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
+                    } else {
+                        jsonData.put("code", "1");
+                        jsonData.put("msg", "天呢！用户名或密码错误");
+                        System.out.println("===============用户名或密码错误：mobile：" + mobile + "   password：" + password + "===============");
+
+                    }
                 }
             } else {
                 jsonData.put("code", "1");
@@ -356,9 +364,9 @@ public class UserAction extends ActionSupport {
             try {
                 String path = realpath + "/" + filename;
                 FileUtils.copyFile(file, new File(path));
-                String sql = "from UserEntity where uid = ?";
+                String sql = "from UserEntity where uid = :uid";
                 Query query = getUser().getSf().openSession().createQuery(sql);
-                query.setParameter(0, Long.parseLong(uid));
+                query.setParameter("uid", Long.parseLong(uid));
                 UserEntity userEntity = (UserEntity) query.list().get(0);
 //                UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
                 userEntity.setIcon("http://120.27.23.105/images/" + filename);
@@ -470,10 +478,10 @@ public class UserAction extends ActionSupport {
             return SUCCESS;
         }
 
-        String sql = "from AddrEntity where uid = ? and addrid = ?";
+        String sql = "from AddrEntity where uid = :uid and addrid = :addrid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(uid));
-        query.setParameter(1, Long.parseLong(addrid));
+        query.setParameter("uid", Long.parseLong(uid));
+        query.setParameter("addrid", Long.parseLong(addrid));
         List<AddrEntity> list = query.list();
 //        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "' and addrid = '"+addrid+"'").list();
 
@@ -527,9 +535,9 @@ public class UserAction extends ActionSupport {
             return SUCCESS;
         }
 
-        String sql = "from AddrEntity where uid = ?";
+        String sql = "from AddrEntity where uid = :uid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(uid));
+        query.setParameter("uid", Long.parseLong(uid));
         List<AddrEntity> list = query.list();
 
 //        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
@@ -573,9 +581,9 @@ public class UserAction extends ActionSupport {
             return SUCCESS;
         }
 
-        String sql = "from AddrEntity where uid = ?";
+        String sql = "from AddrEntity where uid = :uid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(uid));
+        query.setParameter("uid", Long.parseLong(uid));
         List<AddrEntity> list = query.list();
 
 //        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
@@ -615,9 +623,9 @@ public class UserAction extends ActionSupport {
             return SUCCESS;
         }
 
-        String sql = "from AddrEntity where uid = ?";
+        String sql = "from AddrEntity where uid = :uid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(uid));
+        query.setParameter("uid", Long.parseLong(uid));
         List<AddrEntity> list = query.list();
 //        List<AddrEntity> list = getUser().getSf().openSession().createQuery("from AddrEntity where uid = '" + uid + "'").list();
 

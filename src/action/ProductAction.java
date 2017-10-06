@@ -195,9 +195,9 @@ public class ProductAction extends ActionSupport {
             return SUCCESS;
         }
         List<ProductCatagory> list = new ArrayList<>();
-        String sql1 = "from ProductcatagoryEntity where cid = ?";
+        String sql1 = "from ProductcatagoryEntity where cid = :cid";
         Query query = getUser().getSf().openSession().createQuery(sql1);
-        query.setParameter(0, Long.parseLong(cid));
+        query.setParameter("cid", Long.parseLong(cid));
         List<ProductcatagoryEntity> productcatagoryEntities = query.list();
 //        List<ProductcatagoryEntity> productcatagoryEntities = getUser().getSf().openSession().createQuery("from ProductcatagoryEntity where cid = '" + cid + "'").list();
 
@@ -211,9 +211,9 @@ public class ProductAction extends ActionSupport {
                 productCatagory.setName(productcatagoryEntity.getName());
                 System.out.println("cname:" + productcatagoryEntity.getName());
 
-                String sql2 = "from ProductsubcatagoryEntity where pcid = ?";
+                String sql2 = "from ProductsubcatagoryEntity where pcid = :pcid";
                 Query query1 = getUser().getSf().openSession().createQuery(sql2);
-                query1.setParameter(0, (int) productcatagoryEntity.getPcid());
+                query1.setParameter("pcid", (int) productcatagoryEntity.getPcid());
                 List<ProductsubcatagoryEntity> productsubcatagoryEntityList = query1.list();
 //                List<ProductsubcatagoryEntity> productsubcatagoryEntityList = getUser().getSf().openSession().createQuery("from ProductsubcatagoryEntity where pcid = '" + productcatagoryEntity.getPcid() + "'").list();
                 ;
@@ -253,9 +253,9 @@ public class ProductAction extends ActionSupport {
             jsonData.put("msg", "天呢！商品id不能为空");
             return SUCCESS;
         }
-        String sql = "from ProductEntity where pid = ?";
+        String sql = "from ProductEntity where pid = :pid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(pid));
+        query.setParameter("pid", Long.parseLong(pid));
         List<ProductEntity> productEntityList = query.list();
 //        List<ProductEntity> productEntityList = getUser().getSf().openSession().createQuery("from ProductEntity where pid = '" + pid + "'").list();
 
@@ -264,7 +264,7 @@ public class ProductAction extends ActionSupport {
             jsonData.put("code", "0");
             jsonData.put("msg", "");
             jsonData.put("data", productEntity);
-            System.out.println("===============商品详情成功：cid：" + cid + "===============");
+            System.out.println("===============商品详情成功：pid：" + pid + "===============");
 
         }
 
@@ -293,14 +293,14 @@ public class ProductAction extends ActionSupport {
 
         String sql = "";
         if (sort == 0) {//moren
-            sql = "from ProductEntity where pscid = ?";
+            sql = "from ProductEntity where pscid = :pscid";
         } else if (sort == 1) {//xiaoliang
-            sql = "from ProductEntity where pscid = ? order by salenum desc ";
+            sql = "from ProductEntity where pscid = :pscid order by salenum desc ";
         } else if (sort == 2) {//jiage
-            sql = "from ProductEntity where pscid = ? order by price";
+            sql = "from ProductEntity where pscid = :pscid order by price";
         }
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(pscid));
+        query.setParameter("pscid", Long.parseLong(pscid));
         query.setMaxResults(10);
         System.out.println("page:" + page);
         if (page == 1) {
@@ -357,11 +357,11 @@ public class ProductAction extends ActionSupport {
             return SUCCESS;
         }
 
-        String sql = "from CarEntity where pid = ? and uid = ?";
+        String sql = "from CarEntity where pid = :pid and uid = :uid";
 
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(pid));
-        query.setParameter(1, Long.parseLong(uid));
+        query.setParameter("pid", Long.parseLong(pid));
+        query.setParameter("uid", Long.parseLong(uid));
         List<CarEntity> carEntityList = query.list();
 
 //        List<CarEntity> carEntityList = getUser().getSf().openSession().createQuery("from CarEntity where pid = '" + pid + "' and uid = '"+uid+"'").list();
@@ -416,10 +416,10 @@ public class ProductAction extends ActionSupport {
         }
         List<Cart> cartList = new ArrayList<>();
 
-        String sql = "from CarEntity where uid = ? group by sellerid";
+        String sql = "from CarEntity where uid = :uid group by sellerid";
 
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(uid));
+        query.setParameter("uid", Long.parseLong(uid));
         List<CarEntity> carEntityList = query.list();
 
 //        List<CarEntity> carEntityList = getUser().getSf().openSession().createQuery("from CarEntity where uid = '" + uid + "' group by sellerid").list();
@@ -437,10 +437,10 @@ public class ProductAction extends ActionSupport {
 
                 List<Product> productEntityList = new ArrayList<>();
 
-                String sql2 = "from CarEntity where sellerid = ? and uid = ?";
+                String sql2 = "from CarEntity where sellerid = :sellerid and uid = :uid";
                 Query query1 = getUser().getSf().openSession().createQuery(sql2);
-                query1.setParameter(0, carEntity.getSellerid());
-                query1.setParameter(1, Long.parseLong(uid));
+                query1.setParameter("sellerid", carEntity.getSellerid());
+                query1.setParameter("uid", Long.parseLong(uid));
                 List<CarEntity> carEntityList1 = query1.list();
 //                List<CarEntity> carEntityList1 = getUser().getSf().openSession().createQuery("from CarEntity where sellerid = '" + carEntity.getSellerid() + "' and uid = '"+uid+"'").list();
 
@@ -532,11 +532,11 @@ public class ProductAction extends ActionSupport {
             return SUCCESS;
         }
 
-        String sql = "from CarEntity where sellerid = ? and uid = ? and pid = ?";
+        String sql = "from CarEntity where sellerid = :sellerid and uid = :uid and pid = :pid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(sellerid));
-        query.setParameter(1, Long.parseLong(uid));
-        query.setParameter(2, Long.parseLong(pid));
+        query.setParameter("sellerid", Long.parseLong(sellerid));
+        query.setParameter("uid", Long.parseLong(uid));
+        query.setParameter("pid", Long.parseLong(pid));
         List<CarEntity> carEntityList = query.list();
 
 //        List<CarEntity> carEntityList = getUser().getSf().openSession().createQuery("from CarEntity where sellerid = '" + sellerid + "' and uid = '"+uid+"' and pid = '"+pid+"'").list();
@@ -570,9 +570,9 @@ public class ProductAction extends ActionSupport {
 
         String name = "";
 
-        String sql = "from SellerEntity where sellerid = ?";
+        String sql = "from SellerEntity where sellerid = :sellerid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(id));
+        query.setParameter("sellerid", Long.parseLong(id));
 
         List<SellerEntity> sellerEntityList = query.list();
 //        List<SellerEntity> sellerEntityList = getUser().getSf().openSession().createQuery("from SellerEntity where sellerid = '" + id + "'").list();
@@ -594,9 +594,9 @@ public class ProductAction extends ActionSupport {
      */
     private ProductEntity getProduct(String id) {
 
-        String sql = "from ProductEntity where pid = ?";
+        String sql = "from ProductEntity where pid = :pid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(id));
+        query.setParameter("pid", Long.parseLong(id));
         List<ProductEntity> productEntityList = query.list();
 //        List<ProductEntity> productEntityList = getUser().getSf().openSession().createQuery("from ProductEntity where pid = '" + id + "'").list();
 
@@ -674,9 +674,9 @@ public class ProductAction extends ActionSupport {
         }
 
 
-        String sql = "from OrdersEntity where orderid = ?";
+        String sql = "from OrdersEntity where orderid = :orderid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(orderId));
+        query.setParameter("orderid", Long.parseLong(orderId));
         List<OrdersEntity> orderEntityList = query.list();
 //        List<OrdersEntity> orderEntityList = getUser().getSf().openSession().createQuery("from OrdersEntity where orderid = '" + orderId + "'").list();
 
@@ -722,9 +722,9 @@ public class ProductAction extends ActionSupport {
 
         }
 
-        String sql = "from OrdersEntity where uid = ?";
+        String sql = "from OrdersEntity where uid = :uid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(uid));
+        query.setParameter("uid", Long.parseLong(uid));
         query.setMaxResults(10);
         System.out.println("page:" + page);
         if (page == 1) {
@@ -785,7 +785,6 @@ public class ProductAction extends ActionSupport {
         List<ProductEntity> productEntityList = query.list();
 
 //        List<OrdersEntity> ordersEntities = getUser().getSf().openSession().createQuery("from OrdersEntity where uid = '" + uid + "'").list();
-
 
         if (productEntityList != null) {
             jsonData.put("code", "0");

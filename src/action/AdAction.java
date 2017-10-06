@@ -57,9 +57,9 @@ public class AdAction extends ActionSupport {
         MAdBean mAdBean = new MAdBean();
         mAdBean.setName("京东秒杀");
         mAdBean.setTime(1000 * 10 * 60 * 12);
-        String sql = "from ProductEntity where pscid = ?";
+        String sql = "from ProductEntity where pscid = :pscid";
         Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter(0, Long.parseLong(m));
+        query.setParameter("pscid", Long.parseLong(m));
 
         List<ProductEntity> productEntityList = query.list();
 
@@ -73,9 +73,9 @@ public class AdAction extends ActionSupport {
         BAdBean bAdBean = new BAdBean();
         bAdBean.setName("为你推荐");
 
-        String sql2 = "from ProductEntity where pscid = ?";
+        String sql2 = "from ProductEntity where pscid = :pscid";
         Query query1 = getUser().getSf().openSession().createQuery(sql2);
-        query1.setParameter(0, Long.parseLong(t));
+        query1.setParameter("pscid", Long.parseLong(t));
         List<ProductEntity> productEntityList1 = query1.list();
 
 //        List<ProductEntity> productEntityList1 = getUser().getSf().openSession().createQuery("from ProductEntity where pscid = '40'").list();
