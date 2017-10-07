@@ -261,9 +261,18 @@ public class ProductAction extends ActionSupport {
 
         if (productEntityList != null && productEntityList.size() > 0) {
             ProductEntity productEntity = productEntityList.get(0);
+
+
+            String sql1 = "from SellerEntity where sellerid = :sellerid";
+            Query query1 = getUser().getSf().openSession().createQuery(sql1);
+            query1.setParameter("sellerid", productEntity.getSellerid());
+            List<SellerEntity> sellerEntityList = query1.list();
             jsonData.put("code", "0");
             jsonData.put("msg", "");
             jsonData.put("data", productEntity);
+            jsonData.put("seller",sellerEntityList.get(0));
+
+
             System.out.println("===============商品详情成功：pid：" + pid + "===============");
 
         }

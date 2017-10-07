@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.query.Query;
 import service.UserImpl;
+import utils.AccountValidatorUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 public class UserAction extends ActionSupport {
-
     private String uid;
     private String mobile;
     private String password;
@@ -152,6 +152,16 @@ public class UserAction extends ActionSupport {
         System.out.println("===============用户注册请求：mobile：" + mobile + "   password：" + password + "===============");
 
         if (mobile != null && password != null) {
+            if (!AccountValidatorUtil.isMobile(mobile)){
+                jsonData.put("msg", "请输入正确的手机号码");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+            if (!AccountValidatorUtil.isPassword(password)){
+                jsonData.put("msg", "密码格式有问题，不能少于6位数");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
             if (user.isExist(mobile)) {
                 jsonData.put("msg", "天呢！用户已注册");
                 jsonData.put("code", "1");
@@ -274,7 +284,16 @@ public class UserAction extends ActionSupport {
         System.out.println("===============用户登录请求：mobile：" + mobile + "   password：" + password + "===============");
 
         if (mobile != null && password != null) {
-
+            if (!AccountValidatorUtil.isMobile(mobile)){
+                jsonData.put("msg", "请输入正确的手机号码");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+            if (!AccountValidatorUtil.isPassword(password)){
+                jsonData.put("msg", "密码格式有问题，不能少于6位数");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
             String sql = "from UserEntity where mobile = :mobile";
             Query query = getUser().getSf().openSession().createQuery(sql);
             query.setParameter("mobile", mobile);
@@ -292,10 +311,17 @@ public class UserAction extends ActionSupport {
                         jsonData.put("data", user);
                         System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
                     } else {
-                        jsonData.put("code", "1");
-                        jsonData.put("msg", "天呢！用户名或密码错误");
-                        System.out.println("===============用户名或密码错误：mobile：" + mobile + "   password：" + password + "===============");
+                        if (mobile.equals(user.getMobile())&&!password.equals(user.getPassword())){
+                            jsonData.put("code", "1");
+                            jsonData.put("msg", "天呢！密码错误");
 
+                            System.out.println("===============密码错误：mobile：" + mobile + "   password：" + password + "===============");
+                        }else if (!mobile.equals(user.getMobile())&&password.equals(user.getPassword())){
+                            jsonData.put("code", "1");
+                            jsonData.put("msg", "天呢！用户名错误");
+
+                            System.out.println("===============用户名错误：mobile：" + mobile + "   password：" + password + "===============");
+                        }
                     }
                 }
             } else {
@@ -317,7 +343,12 @@ public class UserAction extends ActionSupport {
                 System.out.println("===============密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
             }
-            System.out.println("===============用户名或密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
+            if (password == null && mobile == null) {
+                jsonData.put("msg", "天呢！用户名和密码怎么都是空");
+                jsonData.put("code", "1");
+                System.out.println("===============用户名和密码都为空：mobile：" + mobile + "   password：" + password + "===============");
+
+            }
 
 
         }
@@ -343,7 +374,12 @@ public class UserAction extends ActionSupport {
      */
     public String upload() {
         jsonData = new HashMap<>();
-        System.out.println("===============头像上传请求：fileName：" + file.getName() + "   uid：" + uid + "===============");
+        if (file!=null&&!file.isFile()){
+            jsonData.put("code", "1");
+            jsonData.put("msg", "文件格式不正确");
+            return SUCCESS;
+        }
+        System.out.println("===============头像上传请求：file：" + file + "   uid：" + uid + "===============");
         if (file == null) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！文件不能为空");
@@ -356,7 +392,7 @@ public class UserAction extends ActionSupport {
         }
 
 
-        String filename = uid + ".tmp";
+        String filename = uid + ".jpg";
 
         String realpath = ServletActionContext.getServletContext().getRealPath("/images");
         if (file != null) {
