@@ -9,6 +9,7 @@ import org.apache.struts2.ServletActionContext;
 import org.hibernate.query.Query;
 import service.UserImpl;
 import utils.AccountValidatorUtil;
+import utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -151,36 +152,39 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============用户注册请求：mobile：" + mobile + "   password：" + password + "===============");
 
-        if (mobile != null && password != null) {
-            if (!AccountValidatorUtil.isMobile(mobile)){
-                jsonData.put("msg", "请输入正确的手机号码");
-                jsonData.put("code", "1");
-                return SUCCESS;
-            }
-            if (!AccountValidatorUtil.isPassword(password)){
-                jsonData.put("msg", "密码格式有问题，不能少于6位数");
-                jsonData.put("code", "1");
-                return SUCCESS;
-            }
-            if (user.isExist(mobile)) {
-                jsonData.put("msg", "天呢！用户已注册");
-                jsonData.put("code", "1");
-                jsonData.put("data", "{}");
-                System.out.println("===============用户已注册：mobile：" + mobile + "===============");
+        if (!Utils.isEmpty(mobile) && !Utils.isEmpty(password)) {
+//            if (!AccountValidatorUtil.isMobile(mobile)){
+//                jsonData.put("msg", "请输入正确的手机号码");
+//                jsonData.put("code", "1");
+//                return SUCCESS;
+//            }
+//            if (!AccountValidatorUtil.isPassword(password)){
+//                jsonData.put("msg", "密码格式有问题，不能少于6位数");
+//                jsonData.put("code", "1");
+//                return SUCCESS;
+//            }
+
+                if (user.isExist(mobile)) {
+                    jsonData.put("msg", "天呢！用户已注册");
+                    jsonData.put("code", "1");
+                    jsonData.put("data", "{}");
+                    System.out.println("===============用户已注册：mobile：" + mobile + "===============");
 
 
-            } else {
-                UserEntity userEntity = new UserEntity();
-                userEntity.setMobile(mobile);
-                userEntity.setPassword(password);
-                userEntity.setUsername(mobile);
-                user.add(userEntity);
-                System.out.println("===============用户注册成功：mobile：" + mobile + "   password：" + password + "===============");
+                } else {
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.setMobile(mobile);
+                    userEntity.setPassword(password);
+                    userEntity.setUsername(mobile);
+                    user.add(userEntity);
+                    System.out.println("===============用户注册成功：mobile：" + mobile + "   password：" + password + "===============");
 
-                jsonData.put("msg", "注册成功");
-                jsonData.put("code", "0");
-                jsonData.put("data", userEntity);
-            }
+                    jsonData.put("msg", "注册成功");
+                    jsonData.put("code", "0");
+                    jsonData.put("data", userEntity);
+                }
+
+
         } else {
             jsonData.put("msg", "天呢！用户名或密码不能为空");
             jsonData.put("code", "1");
@@ -207,8 +211,7 @@ public class UserAction extends ActionSupport {
         System.out.println("===============获取用户信息请求：uid：" + uid + "===============");
 
 
-        if (uid != null) {
-
+        if (!Utils.isEmpty(uid)) {
             String sql = "from UserEntity where uid = :uid";
             Query query = getUser().getSf().openSession().createQuery(sql);
             query.setParameter("uid", Long.parseLong(uid));
@@ -251,7 +254,7 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============修改昵称请求：uid：" + uid + "   nickname：" + nickname + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
@@ -283,17 +286,17 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============用户登录请求：mobile：" + mobile + "   password：" + password + "===============");
 
-        if (mobile != null && password != null) {
-            if (!AccountValidatorUtil.isMobile(mobile)){
-                jsonData.put("msg", "请输入正确的手机号码");
-                jsonData.put("code", "1");
-                return SUCCESS;
-            }
-            if (!AccountValidatorUtil.isPassword(password)){
-                jsonData.put("msg", "密码格式有问题，不能少于6位数");
-                jsonData.put("code", "1");
-                return SUCCESS;
-            }
+        if (!Utils.isEmpty(mobile)&&!Utils.isEmpty(password)) {
+//            if (!AccountValidatorUtil.isMobile(mobile)){
+//                jsonData.put("msg", "请输入正确的手机号码");
+//                jsonData.put("code", "1");
+//                return SUCCESS;
+//            }
+//            if (!AccountValidatorUtil.isPassword(password)){
+//                jsonData.put("msg", "密码格式有问题，不能少于6位数");
+//                jsonData.put("code", "1");
+//                return SUCCESS;
+//            }
             String sql = "from UserEntity where mobile = :mobile";
             Query query = getUser().getSf().openSession().createQuery(sql);
             query.setParameter("mobile", mobile);
@@ -331,19 +334,19 @@ public class UserAction extends ActionSupport {
 
             }
         } else {
-            if (mobile == null && password != null) {
+            if (Utils.isEmpty(mobile) && !Utils.isEmpty(password)) {
                 jsonData.put("msg", "天呢！用户名不能为空");
                 jsonData.put("code", "1");
                 System.out.println("===============用户名不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
             }
-            if (password == null && mobile != null) {
+            if (Utils.isEmpty(password) && !Utils.isEmpty(mobile)) {
                 jsonData.put("msg", "天呢！密码不能为空");
                 jsonData.put("code", "1");
                 System.out.println("===============密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
             }
-            if (password == null && mobile == null) {
+            if (Utils.isEmpty(password) &&Utils.isEmpty(mobile)) {
                 jsonData.put("msg", "天呢！用户名和密码怎么都是空");
                 jsonData.put("code", "1");
                 System.out.println("===============用户名和密码都为空：mobile：" + mobile + "   password：" + password + "===============");
@@ -367,71 +370,7 @@ public class UserAction extends ActionSupport {
     }
 
 
-    /**
-     * 上传图片
-     *
-     * @return
-     */
-    public String upload() {
-        jsonData = new HashMap<>();
-        if (file!=null&&!file.isFile()){
-            jsonData.put("code", "1");
-            jsonData.put("msg", "文件格式不正确");
-            return SUCCESS;
-        }
-        System.out.println("===============头像上传请求：file：" + file + "   uid：" + uid + "===============");
-        if (file == null) {
-            jsonData.put("code", "1");
-            jsonData.put("msg", "天呢！文件不能为空");
-            return SUCCESS;
-        }
-        if (uid == null) {
-            jsonData.put("code", "1");
-            jsonData.put("msg", "天呢！用户id不能为空");
-            return SUCCESS;
-        }
 
-
-        String filename = uid + ".jpg";
-
-        String realpath = ServletActionContext.getServletContext().getRealPath("/images");
-        if (file != null) {
-            System.out.println("file:" + file);
-            try {
-                String path = realpath + "/" + filename;
-                FileUtils.copyFile(file, new File(path));
-                String sql = "from UserEntity where uid = :uid";
-                Query query = getUser().getSf().openSession().createQuery(sql);
-                query.setParameter("uid", Long.parseLong(uid));
-                UserEntity userEntity = (UserEntity) query.list().get(0);
-//                UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
-                userEntity.setIcon("http://120.27.23.105/images/" + filename);
-                user.update(userEntity);
-                jsonData.put("code", "0");
-                jsonData.put("msg", "文件上传成功");
-                System.out.println("===============头像上传成功：uid：" + uid + "    file：" + path + "===============");
-                return SUCCESS;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            jsonData.put("code", "1");
-            jsonData.put("msg", "天呢！文件不能为空");
-            System.out.println("===============文件不能为空：uid：" + uid + "   file：" + file + "===============");
-
-        }
-        /**
-         * 若要存入数据库
-         * fileName是在entity实体类中声明存放文件名称的变量
-         * yu.setFileName(imageFileName) 这样将文件名称存入数据库
-         * 文件路径为：savefile
-         */
-        file = null;
-        uid = null;
-        return SUCCESS;
-
-    }
 
     /**
      * 增加地址i
@@ -443,24 +382,24 @@ public class UserAction extends ActionSupport {
         System.out.println("===============增加地址请求：uid：" + uid + "   addr：" + addr + "    mobile" + mobile + "    name：" + name + "===============");
 
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
 
         }
-        if (addr == null) {
+        if (Utils.isEmpty(addr)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！详细地址不能为空");
             return SUCCESS;
         }
-        if (mobile == null) {
+        if (Utils.isEmpty(mobile)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！手机号不能为空");
             return SUCCESS;
         }
 
-        if (name == null) {
+        if (Utils.isEmpty(name)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！姓名不能为空");
             return SUCCESS;
@@ -502,13 +441,13 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============更新地址成功：mobile：" + uid + "   addrid：" + addrid + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
 
-        if (addrid == null) {
+        if (Utils.isEmpty(addrid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！地址id不能为空");
             return SUCCESS;
@@ -559,13 +498,13 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============设为默认地址请求：uid：" + uid + "   addrid：" + addrid + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
         }
 
-        if (addrid == null) {
+        if (Utils.isEmpty(addrid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！地址id不能为空");
             return SUCCESS;
@@ -611,7 +550,7 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============获取默认地址请求：uid：" + uid + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;
@@ -653,7 +592,7 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============常用地址列表请求：uid：" + uid + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
             return SUCCESS;

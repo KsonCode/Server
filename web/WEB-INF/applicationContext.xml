@@ -3,6 +3,18 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8" />
+        <!-- 指定所上传文件的总大小不能超过2000KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="2048000" />
+        <!-- 设置在文件上传时允许写到内存中的最大值，以字节为单位计算，默认是10240 -->
+        <!-- 但是经实验，上传文件大小若小于此参数，则不会生成临时文件，很尴尬，故改为2048 -->
+        <property name="maxInMemorySize" value="100" />
+
+
+    </bean>
+
     <bean class="test.TestService" id="testService">
         <property name="name" value="spring"></property>
     </bean>
@@ -40,6 +52,7 @@
                 <value>bean.OrdersEntity</value>
                 <value>bean.AddrEntity</value>
                 <value>bean.ProductEntity</value>
+                <value>bean.study.ImagesEntity</value>
             </list>
         </property>
 
@@ -55,6 +68,11 @@
     <bean id="user" class="action.UserAction">
         <property name="user" ref="userImpl"></property>
     </bean>
+
+    <!--userAction对应struts里面的class，user已经赋值-->
+    <bean id="file" class="action.UploadAction">
+        <property name="user" ref="userImpl"></property>
+    </bean>
     <!--productAction对应struts里面的class，user已经赋值-->
     <bean id="product" class="action.ProductAction">
         <property name="user" ref="userImpl"></property>
@@ -65,5 +83,9 @@
     </bean>
 
     <bean id="notFound" class="action.NotFoundErrerAction">
+    </bean>
+
+    <bean id="image" class="action.ImageAction">
+        <property name="user" ref="userImpl"/>
     </bean>
 </beans>

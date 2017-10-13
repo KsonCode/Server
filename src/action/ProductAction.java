@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.query.Query;
 import service.UserImpl;
+import utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -189,7 +190,7 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============获取子分类列表：cid：" + cid + "===============");
 
-        if (cid == null) {
+        if (Utils.isEmpty(cid)) {
             jsonData.put("code", "0");
             jsonData.put("msg", "天呢！分类id不能为空");
             return SUCCESS;
@@ -231,6 +232,12 @@ public class ProductAction extends ActionSupport {
 
             }
 
+        }else{
+            jsonData.put("code", "0");
+            jsonData.put("msg", "获取子分类成功");
+            jsonData.put("data", list);
+            System.out.println("===============获取子分类成功：cid：" + cid + "===============");
+
         }
 
 
@@ -248,7 +255,7 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============商品详情请求：pid：" + pid + "===============");
 
-        if (pid == null) {
+        if (Utils.isEmpty(pid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！商品id不能为空");
             return SUCCESS;
@@ -291,7 +298,7 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============获取某分类商品列表请求：pscid：" + pscid + "===============");
 
-        if (pscid == null) {
+        if (Utils.isEmpty(pscid)) {
 
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！分类id不能为空");
@@ -347,20 +354,20 @@ public class ProductAction extends ActionSupport {
         System.out.println("===============添加购物车请求：uid：" + uid + "   pid：" + pid + "  sellerid" + sellerid + "===============");
 
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("msg", "天呢！用户未登录或用户id不能为空");
             jsonData.put("code", "1");
 
             return SUCCESS;
         }
-        if (pid == null) {
+        if (Utils.isEmpty(pid)) {
             jsonData.put("msg", "天呢！商品id不能为空");
             jsonData.put("code", "1");
 
             return SUCCESS;
         }
 
-        if (sellerid == null) {
+        if (Utils.isEmpty(sellerid)) {
             jsonData.put("msg", "天呢！商家id不能为空");
             jsonData.put("code", "1");
             return SUCCESS;
@@ -415,7 +422,7 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============获取购物车请求：uid：" + uid + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
 
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
@@ -512,30 +519,30 @@ public class ProductAction extends ActionSupport {
 
         jsonData = new HashMap<>();
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("msg", "天呢！用户未登录或用户id不能为空");
             jsonData.put("code", "1");
 
             return SUCCESS;
         }
-        if (pid == null) {
+        if (Utils.isEmpty(pid)) {
             jsonData.put("msg", "天呢！商品id不能为空");
             jsonData.put("code", "1");
 
             return SUCCESS;
         }
 
-        if (sellerid == null) {
+        if (Utils.isEmpty(sellerid)) {
             jsonData.put("msg", "天呢！商家id不能为空");
             jsonData.put("code", "1");
             return SUCCESS;
         }
-        if (selected == null) {
+        if (Utils.isEmpty(selected)) {
             jsonData.put("msg", "天呢！选中状态不能为空");
             jsonData.put("code", "1");
             return SUCCESS;
         }
-        if (num == null) {
+        if (Utils.isEmpty(num)) {
             jsonData.put("msg", "天呢！商品数量不能为空");
             jsonData.put("code", "1");
             return SUCCESS;
@@ -626,13 +633,13 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============创建订单请求：uid：" + uid + "   price：" + price + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("msg", "天呢！用户未登录或用户id不能为空");
             jsonData.put("code", "1");
 
             return SUCCESS;
         }
-        if (price == null) {
+        if (Utils.isEmpty(price)) {
             jsonData.put("msg", "天呢！实付价格不能为空");
             jsonData.put("code", "1");
 
@@ -669,13 +676,13 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============更新订单：uid：" + uid + "   orderId：" + orderId + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
             jsonData.put("msg", "天呢！用户未登录或用户id不能为空");
             jsonData.put("code", "1");
 
             return SUCCESS;
         }
-        if (orderId == null) {
+        if (Utils.isEmpty(orderId)) {
             jsonData.put("msg", "天呢！订单id不能为空");
             jsonData.put("code", "1");
 
@@ -722,7 +729,7 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============订单列表：uid：" + uid + "===============");
 
-        if (uid == null) {
+        if (Utils.isEmpty(uid)) {
 
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
@@ -767,7 +774,7 @@ public class ProductAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============商品搜索请求：keywords：" + keywords + "===============");
 
-        if (keywords == null) {
+        if (Utils.isEmpty(keywords)) {
 
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！关键词不能为空");
