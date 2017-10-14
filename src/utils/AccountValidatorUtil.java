@@ -22,7 +22,7 @@ public class AccountValidatorUtil {
     /**
      * 正则表达式：验证手机号
      */
-    public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(11[0-9]|(12[0-9]|(16[0-9]|(19[0-9]|(13[0-9])|(15[0-9])|(18[0-9]))\\d{8}$";
+    public static final String REGEX_MOBILE = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,1,2,5-9])|(177))\\d{8}$";
 
     /**
      * 正则表达式：验证邮箱
@@ -77,6 +77,18 @@ public class AccountValidatorUtil {
      */
     public static boolean isMobile(String mobile) {
         return Pattern.matches(REGEX_MOBILE, mobile);
+    }
+
+    /*
+  * 判断是否为整数
+  * @param str 传入的字符串
+  * @return 是整数返回true,否则返回false
+*/
+
+
+    public static boolean isInteger(String str) {
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+        return pattern.matcher(str).matches();
     }
 
     /**

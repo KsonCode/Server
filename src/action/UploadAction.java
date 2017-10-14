@@ -1,7 +1,7 @@
 package action;
 
 import bean.UserEntity;
-import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Action;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.query.Query;
@@ -13,10 +13,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UploadAction extends ActionSupport{
+public class UploadAction implements Action {
+
     private String uid;
     private File file; //上传的文件
-    private String fileName; //文件名称
+    //文件名称
+    private String fileFileName;
+
+    //文件类型
+    private String fileContentType;
+    //注意：文件名称和文件类型的名称前缀必须相同，
 
     private String savePath;
 
@@ -56,25 +62,60 @@ public class UploadAction extends ActionSupport{
         return jsonData;
     }
 
+    public void setFileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
+    }
+
+    public String getFileContentType() {
+        return fileContentType;
+    }
+
+    public void setFileFileName(String fileFileName) {
+        this.fileFileName = fileFileName;
+    }
+
+    public String getFileFileName() {
+        return fileFileName;
+    }
+
+
+
     /**
      * 上传图片
      *
      * @return
      */
-    public String upload() {
+    public String upload() throws Exception {
         jsonData = new HashMap<>();
 
-        if (file!=null&&!file.isFile()){
+        System.out.println("fileContentType---"+fileContentType);
+        System.out.println("fileName---"+fileFileName);
+
+        if (Utils.isEmpty(fileContentType)){
             jsonData.put("code", "1");
-            jsonData.put("msg", "文件格式不正确");
+            jsonData.put("msg", "天呢！文件未上传，ContentType不能为null");
             return SUCCESS;
         }
+
+        if (Utils.isEmpty(fileFileName)){
+            jsonData.put("code", "1");
+            jsonData.put("msg", "天呢！文件未上传，文件名称不能为null");
+            return SUCCESS;
+        }
+
         System.out.println("===============头像上传请求：file：" + file + "   uid：" + uid + "===============");
         if (file == null) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！文件不能为空");
             return SUCCESS;
         }
+
+        if (file != null && !file.isFile()) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "文件格式不正确");
+            return SUCCESS;
+        }
+
         if (Utils.isEmpty(uid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户id不能为空");
@@ -121,5 +162,10 @@ public class UploadAction extends ActionSupport{
         uid = null;
         return SUCCESS;
 
+    }
+
+    @Override
+    public String execute() throws Exception {
+        return SUCCESS;
     }
 }

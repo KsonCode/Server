@@ -2,22 +2,19 @@ package action;
 
 import bean.AddrEntity;
 import bean.UserEntity;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 import org.hibernate.query.Query;
 import service.UserImpl;
 import utils.AccountValidatorUtil;
 import utils.Utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserAction extends ActionSupport {
+public class UserAction implements Action {
     private String uid;
     private String mobile;
     private String password;
@@ -152,17 +149,25 @@ public class UserAction extends ActionSupport {
         jsonData = new HashMap<>();
         System.out.println("===============用户注册请求：mobile：" + mobile + "   password：" + password + "===============");
 
+        if (!Utils.isEmpty(mobile)){
+
+            if (!AccountValidatorUtil.isInteger(mobile)){
+                jsonData.put("msg", "请输入正确的手机号码");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+        }
         if (!Utils.isEmpty(mobile) && !Utils.isEmpty(password)) {
-//            if (!AccountValidatorUtil.isMobile(mobile)){
-//                jsonData.put("msg", "请输入正确的手机号码");
-//                jsonData.put("code", "1");
-//                return SUCCESS;
-//            }
-//            if (!AccountValidatorUtil.isPassword(password)){
-//                jsonData.put("msg", "密码格式有问题，不能少于6位数");
-//                jsonData.put("code", "1");
-//                return SUCCESS;
-//            }
+            if (!AccountValidatorUtil.isMobile(mobile)){
+                jsonData.put("msg", "请输入正确的手机号码");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+            if (!AccountValidatorUtil.isPassword(password)){
+                jsonData.put("msg", "密码格式有问题，不能少于6位数");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
 
                 if (user.isExist(mobile)) {
                     jsonData.put("msg", "天呢！用户已注册");
@@ -285,18 +290,24 @@ public class UserAction extends ActionSupport {
     public String login() {
         jsonData = new HashMap<>();
         System.out.println("===============用户登录请求：mobile：" + mobile + "   password：" + password + "===============");
-
+        if (!Utils.isEmpty(mobile)) {
+            if (!AccountValidatorUtil.isInteger(mobile)) {
+                jsonData.put("msg", "请输入正确的手机号码");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+        }
         if (!Utils.isEmpty(mobile)&&!Utils.isEmpty(password)) {
-//            if (!AccountValidatorUtil.isMobile(mobile)){
-//                jsonData.put("msg", "请输入正确的手机号码");
-//                jsonData.put("code", "1");
-//                return SUCCESS;
-//            }
-//            if (!AccountValidatorUtil.isPassword(password)){
-//                jsonData.put("msg", "密码格式有问题，不能少于6位数");
-//                jsonData.put("code", "1");
-//                return SUCCESS;
-//            }
+            if (!AccountValidatorUtil.isMobile(mobile)){
+                jsonData.put("msg", "请输入正确的手机号码");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+            if (!AccountValidatorUtil.isPassword(password)){
+                jsonData.put("msg", "密码格式有问题，不能少于6位数");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
             String sql = "from UserEntity where mobile = :mobile";
             Query query = getUser().getSf().openSession().createQuery(sql);
             query.setParameter("mobile", mobile);
@@ -619,4 +630,8 @@ public class UserAction extends ActionSupport {
 
     }
 
+    @Override
+    public String execute() throws Exception {
+        return SUCCESS;
+    }
 }

@@ -1,11 +1,11 @@
 package action;
 
-import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Action;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class NotFoundErrerAction extends ActionSupport {
+public class NotFoundErrerAction implements Action {
     private Map<String,Object> jsonData;
 
     public void setJsonData(Map<String, Object> jsonData) {
@@ -22,5 +22,10 @@ public class NotFoundErrerAction extends ActionSupport {
        jsonData.put("msg","接口地址貌似不存在，我的天呢！好好检查一遍！！！");
         System.out.println("==============接口地址貌似不存在，我的天呢！好好检查一遍！！==============");
        return SUCCESS;
+    }
+
+    @Override
+    public String execute() throws Exception {
+        return SUCCESS;
     }
 }

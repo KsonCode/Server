@@ -5,18 +5,33 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 
+    <!-- 设置自动装载国际化 -->
+    <constant name="struts.i18n.reload" value="true" />
+    <!-- 设置动态方法调用 -->
+    <constant name="struts.enable.DnamicMethodInvocation" value="true" />
+
+    <!-- 指定每次配置文件更改后，自动重新加载 -->
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <!-- 设置访问方式 -->
+    <constant name="struts.action.extension" value="action,," />
+    <!-- 去除多余的格式 -->
+    <constant name="struts.ui.theme" value="simple" />
+    <!--设置上传文件大小20MB，默认为2MB大小 -->
+    <constant name="struts.multipart.maxSize" value="20971520"></constant>
+    <!--//加上这一句修改strust就不需要重启服务。-->
+    <constant name="struts.devMode" value="true" />
     <!-- 设置编码格式，防止上传的文件名为中文时是乱码 -->
     <constant name="struts.i18n.encoding" value="UTF-8"/>
     <!-- 指定resource资源文件的名称-->
     <constant name="struts.custom.i18n.resources" value="message"/>
-    <!-- 设置上传文件的总大小(单位：字节)，默认是10M -->
-    <constant name="struts.multipart.maxSize" value="104857600"/>
     <!-- struts的action配置文件 -->
     <!-- 将action托管给spring -->
     <constant name="struts.objectFactory" value="spring" />
 
+
     <!--如果action不存在，则跳转到默认action-->
     <package name="default" namespace="/" extends="json-default">
+
         <default-action-ref name="notFound" />
         <action name="notFound" class="notFound" method="notFound">
             <result type="json">
@@ -181,7 +196,18 @@
     </package>
 
     <package name="upload" namespace="/file" extends="json-default,default">
+
         <action name="upload" class="file" method="upload">
+            <interceptor-ref name="fileUpload">
+                <param name ="allowedTypes">
+                    image/*,image/bmp,image/png,image/gif,image/jpeg,image/pjpeg,application/octet-stream
+                </param >
+                <param name="maximumSize">
+                    2097152
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name ="fileUploadStack"/>
+            <interceptor-ref name = "defaultStack"/>
             <result type="json">
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
             </result>

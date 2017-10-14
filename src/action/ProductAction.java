@@ -1,20 +1,15 @@
 package action;
 
 import bean.*;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.Action;
 import org.hibernate.query.Query;
 import service.UserImpl;
+import utils.AccountValidatorUtil;
 import utils.Utils;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
 import java.util.*;
 
-public class ProductAction extends ActionSupport {
+public class ProductAction implements Action {
 
     private String pid;
     private UserImpl user;
@@ -28,22 +23,22 @@ public class ProductAction extends ActionSupport {
 
     //分页
     private int pageNum = 10;
-    private int page = 1;
+    private String page = "1";
 
     //订单
     private String price;
     private String orderId;
-    private int status;
+    private String status;
 
     //搜索
     private String keywords;
-    private int sort = 0;
+    private String sort = "0";
 
-    public void setSort(int sort) {
+    public void setSort(String sort) {
         this.sort = sort;
     }
 
-    public int getSort() {
+    public String getSort() {
         return sort;
     }
 
@@ -55,19 +50,19 @@ public class ProductAction extends ActionSupport {
         return keywords;
     }
 
-    public void setPage(int page) {
+    public void setPage(String page) {
         this.page = page;
     }
 
-    public int getPage() {
+    public String getPage() {
         return page;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -232,7 +227,7 @@ public class ProductAction extends ActionSupport {
 
             }
 
-        }else{
+        } else {
             jsonData.put("code", "0");
             jsonData.put("msg", "获取子分类成功");
             jsonData.put("data", list);
@@ -277,7 +272,7 @@ public class ProductAction extends ActionSupport {
             jsonData.put("code", "0");
             jsonData.put("msg", "");
             jsonData.put("data", productEntity);
-            jsonData.put("seller",sellerEntityList.get(0));
+            jsonData.put("seller", sellerEntityList.get(0));
 
 
             System.out.println("===============商品详情成功：pid：" + pid + "===============");
@@ -306,24 +301,48 @@ public class ProductAction extends ActionSupport {
             return SUCCESS;
 
         }
+        Query query = null;
+        if (!Utils.isEmpty(sort)) {
 
-        String sql = "";
-        if (sort == 0) {//moren
-            sql = "from ProductEntity where pscid = :pscid";
-        } else if (sort == 1) {//xiaoliang
-            sql = "from ProductEntity where pscid = :pscid order by salenum desc ";
-        } else if (sort == 2) {//jiage
-            sql = "from ProductEntity where pscid = :pscid order by price";
+            if (AccountValidatorUtil.isInteger(sort)) {
+
+                String sql = "";
+                if (Integer.parseInt(sort) == 0) {//moren
+                    sql = "from ProductEntity where pscid = :pscid";
+                } else if (Integer.parseInt(sort) == 1) {//xiaoliang
+                    sql = "from ProductEntity where pscid = :pscid order by salenum desc ";
+                } else if (Integer.parseInt(sort) == 2) {//jiage
+                    sql = "from ProductEntity where pscid = :pscid order by price";
+                }
+                query = getUser().getSf().openSession().createQuery(sql);
+                query.setParameter("pscid", Long.parseLong(pscid));
+                query.setMaxResults(10);
+                System.out.println("page:" + page);
+                if (page != null) {
+
+                    if (AccountValidatorUtil.isInteger(page)) {
+
+                        if (page.equals(1)) {
+                            query.setFirstResult(0);
+                        } else {
+                            query.setFirstResult((Integer.parseInt(page) - 1) * 10);
+                        }
+                    } else {
+                        jsonData.put("code", "1");
+                        jsonData.put("msg", "God！page必须是数字");
+
+                        return SUCCESS;
+                    }
+                }
+            } else {
+                jsonData.put("code", "1");
+                jsonData.put("msg", "天呢！sort必须是数字格式");
+
+                return SUCCESS;
+            }
+
         }
-        Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter("pscid", Long.parseLong(pscid));
-        query.setMaxResults(10);
-        System.out.println("page:" + page);
-        if (page == 1) {
-            query.setFirstResult(0);
-        } else {
-            query.setFirstResult((page - 1) * 10);
-        }
+
 
         List<ProductEntity> productEntityList = query.list();
 
@@ -542,8 +561,15 @@ public class ProductAction extends ActionSupport {
             jsonData.put("code", "1");
             return SUCCESS;
         }
-        if (Utils.isEmpty(num)) {
-            jsonData.put("msg", "天呢！商品数量不能为空");
+        if (AccountValidatorUtil.isInteger(num)) {
+
+            if (Utils.isEmpty(num)) {
+                jsonData.put("msg", "天呢！商品数量不能为空");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+        } else {
+            jsonData.put("msg", "天呢！商品数量必须是数字");
             jsonData.put("code", "1");
             return SUCCESS;
         }
@@ -682,10 +708,31 @@ public class ProductAction extends ActionSupport {
 
             return SUCCESS;
         }
-        if (Utils.isEmpty(orderId)) {
+
+        if (!Utils.isEmpty(orderId)) {
+
+            if (!AccountValidatorUtil.isInteger(orderId)) {
+                jsonData.put("msg", "天呢！订单id必须是数字");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+
+        } else {
             jsonData.put("msg", "天呢！订单id不能为空");
             jsonData.put("code", "1");
 
+            return SUCCESS;
+        }
+        if (!Utils.isEmpty(status)) {
+
+            if (!AccountValidatorUtil.isInteger(status)) {
+                jsonData.put("msg", "天呢！订单状态必须是数字");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
+        } else {
+            jsonData.put("msg", "天呢！订单状态不能为空");
+            jsonData.put("code", "1");
             return SUCCESS;
         }
 
@@ -701,7 +748,7 @@ public class ProductAction extends ActionSupport {
 
             OrdersEntity orderEntity = orderEntityList.get(0);
             if (orderEntity != null) {
-                orderEntity.setStatus(status);
+                orderEntity.setStatus(Integer.parseInt(status));
                 getUser().updateOrder(orderEntity);
 
                 jsonData.put("msg", "订单状态修改成功");
@@ -713,7 +760,7 @@ public class ProductAction extends ActionSupport {
         }
 
         uid = null;
-        status = 0;
+        status = "0";
 
         return SUCCESS;
 
@@ -743,10 +790,21 @@ public class ProductAction extends ActionSupport {
         query.setParameter("uid", Long.parseLong(uid));
         query.setMaxResults(10);
         System.out.println("page:" + page);
-        if (page == 1) {
-            query.setFirstResult(0);
-        } else {
-            query.setFirstResult((page - 1) * 10);
+        if (page != null) {
+
+            if (AccountValidatorUtil.isInteger(page)) {
+
+                if (page.equals(1)) {
+                    query.setFirstResult(0);
+                } else {
+                    query.setFirstResult((Integer.parseInt(page) - 1) * 10);
+                }
+            } else {
+                jsonData.put("code", "1");
+                jsonData.put("msg", "God！page必须是数字");
+
+                return SUCCESS;
+            }
         }
         List<OrdersEntity> ordersEntities = query.list();
 
@@ -782,21 +840,49 @@ public class ProductAction extends ActionSupport {
             return SUCCESS;
 
         }
-        String sql = "";
-        if (sort == 0) {//moren
-            sql = "from ProductEntity where title like '%" + keywords + "%'";
-        } else if (sort == 1) {//xiaoliang
-            sql = "from ProductEntity where title like '%" + keywords + "%' order by salenum desc ";
-        } else if (sort == 2) {//jiage
-            sql = "from ProductEntity where title like '%" + keywords + "%' order by price";
+        Query query = null;
+        if (!Utils.isEmpty(sort)) {
+
+            if (AccountValidatorUtil.isInteger(sort)) {
+                String sql = "";
+                if (Integer.parseInt(sort) == 0) {//moren
+                    sql = "from ProductEntity where title like '%" + keywords + "%'";
+                } else if (Integer.parseInt(sort) == 1) {//xiaoliang
+                    sql = "from ProductEntity where title like '%" + keywords + "%' order by salenum desc ";
+                } else if (Integer.parseInt(sort) == 2) {//jiage
+                    sql = "from ProductEntity where title like '%" + keywords + "%' order by price";
+                }
+                query = getUser().getSf().openSession().createQuery(sql);
+                query.setMaxResults(10);
+            } else {
+                jsonData.put("code", "1");
+                jsonData.put("msg", "天呢！sort必须是数字格式");
+
+                return SUCCESS;
+            }
+
         }
-        Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setMaxResults(10);
+
+
         System.out.println("page:" + page);
-        if (page == 1) {
-            query.setFirstResult(0);
+        if (!Utils.isEmpty(page)) {
+
+            if (AccountValidatorUtil.isInteger(page)) {
+
+                if (page.equals(1)) {
+                    query.setFirstResult(0);
+                } else {
+                    query.setFirstResult((Integer.parseInt(page) - 1) * 10);
+                }
+            } else {
+                jsonData.put("code", "1");
+                jsonData.put("msg", "God！page必须是数字");
+
+                return SUCCESS;
+            }
         } else {
-            query.setFirstResult((page - 1) * 10);
+            page = "1";
+            query.setFirstResult(0);
         }
         List<ProductEntity> productEntityList = query.list();
 
@@ -811,6 +897,11 @@ public class ProductAction extends ActionSupport {
 
         }
         keywords = null;
+        return SUCCESS;
+    }
+
+    @Override
+    public String execute() throws Exception {
         return SUCCESS;
     }
 }

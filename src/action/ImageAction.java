@@ -12,8 +12,9 @@ import service.UserImpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import  com.opensymphony.xwork2.Action;
 
-public class ImageAction extends ActionSupport {
+public class ImageAction implements Action {
 
     private int page = 1;
     private UserImpl user;
@@ -74,4 +75,8 @@ public class ImageAction extends ActionSupport {
     }
 
 
+    @Override
+    public String execute() throws Exception {
+        return SUCCESS;
+    }
 }

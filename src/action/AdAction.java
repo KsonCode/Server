@@ -2,24 +2,17 @@ package action;
 
 import bean.AdEntity;
 import bean.ProductEntity;
-import bean.UserEntity;
 import bean.ad.BAdBean;
 import bean.ad.MAdBean;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.Action;
 import org.hibernate.query.Query;
 import service.UserImpl;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdAction extends ActionSupport {
+public class AdAction implements Action {
 
     private UserImpl user;
     private Map<String, Object> jsonData;
@@ -92,4 +85,8 @@ public class AdAction extends ActionSupport {
     }
 
 
+    @Override
+    public String execute() throws Exception {
+        return SUCCESS;
+    }
 }
