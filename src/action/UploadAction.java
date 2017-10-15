@@ -91,6 +91,19 @@ public class UploadAction implements Action {
         System.out.println("fileContentType---"+fileContentType);
         System.out.println("fileName---"+fileFileName);
 
+        if (Utils.isEmpty(uid)) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "天呢！用户id不能为空");
+            return SUCCESS;
+        }
+
+        System.out.println("===============头像上传请求：file：" + file + "   uid：" + uid + "===============");
+        if (file == null) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "天呢！文件不能为空");
+            return SUCCESS;
+        }
+
         if (Utils.isEmpty(fileContentType)){
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！文件未上传，ContentType不能为null");
@@ -103,12 +116,7 @@ public class UploadAction implements Action {
             return SUCCESS;
         }
 
-        System.out.println("===============头像上传请求：file：" + file + "   uid：" + uid + "===============");
-        if (file == null) {
-            jsonData.put("code", "1");
-            jsonData.put("msg", "天呢！文件不能为空");
-            return SUCCESS;
-        }
+
 
         if (file != null && !file.isFile()) {
             jsonData.put("code", "1");
@@ -116,11 +124,7 @@ public class UploadAction implements Action {
             return SUCCESS;
         }
 
-        if (Utils.isEmpty(uid)) {
-            jsonData.put("code", "1");
-            jsonData.put("msg", "天呢！用户id不能为空");
-            return SUCCESS;
-        }
+
 
 
         String filename = uid + ".jpg";
@@ -160,6 +164,8 @@ public class UploadAction implements Action {
          */
         file = null;
         uid = null;
+        fileContentType =null;
+        fileFileName = null;
         return SUCCESS;
 
     }

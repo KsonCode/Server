@@ -359,6 +359,7 @@ public class ProductAction implements Action {
 
         }
         pscid = null;
+        page = "1";
         return SUCCESS;
     }
 
@@ -896,6 +897,7 @@ public class ProductAction implements Action {
             System.out.println("===============商品搜索成功：keywords：" + keywords + "===============");
 
         }
+        page = "1";
         keywords = null;
         return SUCCESS;
     }

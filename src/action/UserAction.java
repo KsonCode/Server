@@ -234,7 +234,11 @@ public class UserAction implements Action {
                         jsonData.put("data", userEntity);
 
                     }
+                }else{
+                    jsonData.put("code", "1");
+                    jsonData.put("msg", "没有此用户信息");
                 }
+
             }
 
 

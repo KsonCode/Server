@@ -17,6 +17,7 @@ public class ProductEntity {
     private Double bargainPrice;
     private long sellerid;
     private Integer salenum;
+    private int itemtype;
 
     @Id
     @Column(name = "pid")
@@ -167,5 +168,15 @@ public class ProductEntity {
         result = 31 * result + (int) (sellerid ^ (sellerid >>> 32));
         result = 31 * result + (salenum != null ? salenum.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "itemtype")
+    public int getItemtype() {
+        return itemtype;
+    }
+
+    public void setItemtype(int itemtype) {
+        this.itemtype = itemtype;
     }
 }
