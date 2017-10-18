@@ -1,4 +1,4 @@
-<%--
+<%@ page import="action.UserAction" %><%--
   Created by IntelliJ IDEA.
   User: kson
   Date: 2017/9/24
@@ -8,9 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>success</title>
+    <title>COUNT</title>
 </head>
 <body>
-success
+当前在线人数:${application.onlineCount }
+<BR>
+登录接口调用次数：<%=UserAction.loginCount%>
+<BR>
+注册接口调用次数：<%=UserAction.regCount%>
 </body>
 </html>
