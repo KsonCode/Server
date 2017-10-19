@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdAction implements Action {
+    public static long adCount = 0;
 
     private UserImpl user;
     private Map<String, Object> jsonData;
@@ -34,6 +35,7 @@ public class AdAction implements Action {
     }
 
     public String getAd() {
+        adCount++;
         jsonData = new HashMap<>();
         System.out.println("===============获取首页广告请求===============");
 

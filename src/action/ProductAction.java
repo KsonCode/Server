@@ -5,12 +5,15 @@ import com.opensymphony.xwork2.Action;
 import org.hibernate.query.Query;
 import service.UserImpl;
 import utils.AccountValidatorUtil;
+import utils.ArithUtils;
 import utils.Utils;
 
 import java.util.*;
 
 public class ProductAction implements Action {
 
+    public static long  categoryCount = 0;
+    public static long  subcategoryCount = 0;
     private String pid;
     private UserImpl user;
     private Map<String, Object> jsonData;
@@ -160,6 +163,7 @@ public class ProductAction implements Action {
      * @return
      */
     public String getCatagory() {
+        categoryCount++;
         System.out.println("===============获取分类列表请求===============");
 
         jsonData = new HashMap<>();
@@ -182,6 +186,7 @@ public class ProductAction implements Action {
      * @return
      */
     public String getProductCatagory() {
+        subcategoryCount++;
         jsonData = new HashMap<>();
         System.out.println("===============获取子分类列表：cid：" + cid + "===============");
 
@@ -387,11 +392,11 @@ public class ProductAction implements Action {
             return SUCCESS;
         }
 
-        if (Utils.isEmpty(sellerid)) {
-            jsonData.put("msg", "天呢！商家id不能为空");
-            jsonData.put("code", "1");
-            return SUCCESS;
-        }
+//        if (Utils.isEmpty(sellerid)) {
+//            jsonData.put("msg", "天呢！商家id不能为空");
+//            jsonData.put("code", "1");
+//            return SUCCESS;
+//        }
 
         String sql = "from CarEntity where pid = :pid and uid = :uid";
 
@@ -400,19 +405,41 @@ public class ProductAction implements Action {
         query.setParameter("uid", Long.parseLong(uid));
         List<CarEntity> carEntityList = query.list();
 
+        String sql2 = "from ProductEntity where pid = :pid";
+        double price = -1;
+        long  selerid = -1;
+        Query query2 = getUser().getSf().openSession().createQuery(sql2);
+        query2.setParameter("pid", Long.parseLong(pid));
+        List<ProductEntity> productList = query2.list();
+        if (productList!=null&&productList.size()>0){
+            price = productList.get(0).getBargainPrice();
+            selerid = productList.get(0).getSellerid();
+        }
+
 //        List<CarEntity> carEntityList = getUser().getSf().openSession().createQuery("from CarEntity where pid = '" + pid + "' and uid = '"+uid+"'").list();
 
         if (carEntityList != null && carEntityList.size() > 0) {
             CarEntity carEntity = carEntityList.get(0);
             if (carEntity != null) {
-                carEntity.setNum(carEntity.getNum() + 1);
+                int num = carEntity.getNum()+1;
+                carEntity.setNum(num);
+                carEntity.setPrice(ArithUtils.mul(price,num));
+                System.out.println("num=====================================:"+num);
+                System.out.println("price=====================================:"+ArithUtils.mul(price,num));
                 getUser().updateCar(carEntity);
             }
         } else {
             CarEntity carEntity = new CarEntity();
             carEntity.setNum(1);
+            if (price!=-1){
+                carEntity.setPrice(price);
+            }else{
+                carEntity.setPrice(0);
+            }
             carEntity.setPid(Long.parseLong(pid));
-            carEntity.setSellerid(Long.parseLong(sellerid));
+            if (selerid!=-1){
+                carEntity.setSellerid(selerid);
+            }
             carEntity.setUid(Long.parseLong(uid));
             getUser().addCar(carEntity);
         }
@@ -424,7 +451,74 @@ public class ProductAction implements Action {
 
 
         uid = null;
-        sellerid = null;
+//        sellerid = null;
+        pid = null;
+
+
+        return SUCCESS;
+
+
+    }
+
+    /**
+     * 添加购物车
+     *
+     * @return
+     */
+    public String deleteCart() {
+        jsonData = new HashMap<>();
+        System.out.println("===============添加购物车请求：uid：" + uid + "   pid：" + pid + "  sellerid" + sellerid + "===============");
+
+
+        if (Utils.isEmpty(uid)) {
+            jsonData.put("msg", "天呢！用户未登录或用户id不能为空");
+            jsonData.put("code", "1");
+
+            return SUCCESS;
+        }
+        if (Utils.isEmpty(pid)) {
+            jsonData.put("msg", "天呢！商品id不能为空");
+            jsonData.put("code", "1");
+
+            return SUCCESS;
+        }
+
+//        if (Utils.isEmpty(sellerid)) {
+//            jsonData.put("msg", "天呢！商家id不能为空");
+//            jsonData.put("code", "1");
+//            return SUCCESS;
+//        }
+
+        String sql = "from CarEntity where pid = :pid and uid = :uid";
+
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter("pid", Long.parseLong(pid));
+        query.setParameter("uid", Long.parseLong(uid));
+        List<CarEntity> carEntityList = query.list();
+
+
+//        List<CarEntity> carEntityList = getUser().getSf().openSession().createQuery("from CarEntity where pid = '" + pid + "' and uid = '"+uid+"'").list();
+
+        if (carEntityList != null && carEntityList.size() > 0) {
+            CarEntity carEntity = carEntityList.get(0);
+            if (carEntity != null) {
+
+                getUser().deleteCar(carEntity);
+                jsonData.put("msg", "删除购物车成功");
+                jsonData.put("code", "0");
+                System.out.println("===============删除购物车成功：uid：" + uid + "   pid：" + pid + "  sellerid" + sellerid + "===============");
+
+
+            }
+        } else{
+            jsonData.put("msg", "购物车数据不存在");
+            jsonData.put("code", "1");
+        }
+
+
+
+        uid = null;
+//        sellerid = null;
         pid = null;
 
 
@@ -450,6 +544,19 @@ public class ProductAction implements Action {
             return SUCCESS;
 
         }
+
+        String usersql = "from UserEntity where uid = :uid";
+
+        Query userquery = getUser().getSf().openSession().createQuery(usersql);
+        userquery.setParameter("uid", Long.parseLong(uid));
+        List<UserEntity> userEntityList = userquery.list();
+        if (userEntityList!=null&&userEntityList.size()==0){
+            jsonData.put("code", "1");
+            jsonData.put("msg", "天呢！用户不存在");
+
+            return SUCCESS;
+        }
+
         List<Cart> cartList = new ArrayList<>();
 
         String sql = "from CarEntity where uid = :uid group by sellerid";
@@ -480,48 +587,45 @@ public class ProductAction implements Action {
                 List<CarEntity> carEntityList1 = query1.list();
 //                List<CarEntity> carEntityList1 = getUser().getSf().openSession().createQuery("from CarEntity where sellerid = '" + carEntity.getSellerid() + "' and uid = '"+uid+"'").list();
 
+                if (carEntityList1!=null&&carEntityList1.size()>0){
 
-                for (CarEntity entity : carEntityList1) {
+                    for (CarEntity entity : carEntityList1) {
 
-                    System.out.println("selleid" + entity.getSellerid());
-                    System.out.println("pid:" + entity.getPid());
-                    ProductEntity productEntity = getProduct(String.valueOf(entity.getPid()));
-                    Product product = new Product();
-                    product.setBargainPrice(productEntity.getBargainPrice());
-                    product.setCreatetime(productEntity.getCreatetime());
-                    product.setDetailUrl(productEntity.getDetailUrl());
-                    product.setImages(productEntity.getImages());
-                    product.setNum(entity.getNum());
-                    product.setPid(entity.getPid());
-                    product.setPrice(productEntity.getPrice());
-                    product.setPscid(productEntity.getPscid());
-                    product.setSelected(entity.getSelected());
-                    product.setSellerid(productEntity.getSellerid());
-                    product.setSubhead(productEntity.getSubhead());
-                    product.setTitle(productEntity.getTitle());
+                        System.out.println("selleid" + entity.getSellerid());
+                        System.out.println("pid:" + entity.getPid());
+                        ProductEntity productEntity = getProduct(String.valueOf(entity.getPid()));
+                        if (productEntity!=null){
 
-                    productEntityList.add(product);
+                            Product product = new Product();
+                            product.setBargainPrice(productEntity.getBargainPrice());
+                            product.setCreatetime(productEntity.getCreatetime());
+                            product.setDetailUrl(productEntity.getDetailUrl());
+                            product.setImages(productEntity.getImages());
+                            product.setNum(entity.getNum());
+                            product.setPid(entity.getPid());
+                            product.setPrice(productEntity.getPrice());
+                            product.setPscid(productEntity.getPscid());
+                            product.setSelected(entity.getSelected());
+                            product.setSellerid(productEntity.getSellerid());
+                            product.setSubhead(productEntity.getSubhead());
+                            product.setTitle(productEntity.getTitle());
 
+                            productEntityList.add(product);
+                        }
+
+                    }
+                    cart.setList(productEntityList);
+                    cartList.add(cart);
                 }
-
-                cart.setList(productEntityList);
-                cartList.add(cart);
-
             }
-
-
             if (cartList != null) {
                 jsonData.put("code", "0");
                 jsonData.put("msg", "请求成功");
                 jsonData.put("data", cartList);
                 System.out.println("===============获取购物车成功：uid：" + uid + "===============");
-
                 return SUCCESS;
             }
-
-
         }
-
 
         uid = null;
         jsonData = null;
@@ -582,6 +686,15 @@ public class ProductAction implements Action {
         query.setParameter("pid", Long.parseLong(pid));
         List<CarEntity> carEntityList = query.list();
 
+        String sql2 = "from ProductEntity where pid = :pid";
+        double price = -1;
+        Query query2 = getUser().getSf().openSession().createQuery(sql2);
+        query2.setParameter("pid", Long.parseLong(pid));
+        List<ProductEntity> productList = query2.list();
+        if (productList!=null&&productList.size()>0){
+            price = productList.get(0).getBargainPrice();
+        }
+
 //        List<CarEntity> carEntityList = getUser().getSf().openSession().createQuery("from CarEntity where sellerid = '" + sellerid + "' and uid = '"+uid+"' and pid = '"+pid+"'").list();
 
         if (carEntityList != null && carEntityList.size() > 0) {
@@ -589,6 +702,9 @@ public class ProductAction implements Action {
             CarEntity carEntity = carEntityList.get(0);
             if (carEntity != null) {
                 carEntity.setNum(Integer.parseInt(num));
+                if (price!=-1){
+                    carEntity.setPrice(ArithUtils.mul(price,Double.parseDouble(num)));
+                }
                 carEntity.setSelected(Integer.parseInt(selected));
 
                 getUser().updateCar(carEntity);
@@ -669,21 +785,48 @@ public class ProductAction implements Action {
         if (Utils.isEmpty(price)) {
             jsonData.put("msg", "天呢！实付价格不能为空");
             jsonData.put("code", "1");
-
             return SUCCESS;
         }
 
-        OrdersEntity orderEntity = new OrdersEntity();
-        orderEntity.setPrice(Double.parseDouble(price));
-        orderEntity.setUid(Long.parseLong(uid));
-        orderEntity.setStatus(0);
+        String sql = "from CarEntity where uid = :uid";
+        Query query = getUser().getSf().openSession().createQuery(sql);
+        query.setParameter("uid", Long.parseLong(uid));
+        List<CarEntity> carEntityList = query.list();
 
-        getUser().createOrder(orderEntity);
+        if (carEntityList!=null&&carEntityList.size()>0){
+            double mprice = 0;
+            double[] values = new double[carEntityList.size()];
+            for (int i = 0; i <carEntityList.size() ; i++) {
+                values[i] = carEntityList.get(i).getPrice();
+            }
+            if (values!=null&&values.length>0){
+                mprice = ArithUtils.add(values);
+                if (mprice!=Double.parseDouble(price)){
+                    jsonData.put("msg", "天呢！有钱人，总价不正确！");
+                    jsonData.put("code", "1");
+                    return SUCCESS;
+                }
+            }
+            OrdersEntity orderEntity = new OrdersEntity();
+            orderEntity.setPrice(Double.parseDouble(price));
+            orderEntity.setUid(Long.parseLong(uid));
+            orderEntity.setStatus(0);
+
+            getUser().createOrder(orderEntity);
 
 
-        jsonData.put("msg", "订单创建成功");
-        jsonData.put("code", "0");
-        System.out.println("===============订单创建成功：uid：" + uid + "   price：" + price + "===============");
+            jsonData.put("msg", "订单创建成功");
+            jsonData.put("code", "0");
+            System.out.println("===============订单创建成功：uid：" + uid + "   price：" + price + "===============");
+
+        }else{
+            jsonData.put("msg", "购物车不能为空");
+            jsonData.put("code", "1");
+            System.out.println("===============订单创建失败，购物车为空：uid：" + uid + "   price：" + price + "===============");
+
+        }
+
+
 
 
         uid = null;

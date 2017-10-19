@@ -15,6 +15,8 @@ import java.util.Map;
 
 public class UploadAction implements Action {
 
+    public static int uploadCount =0;
+
     private String uid;
     private File file; //上传的文件
     //文件名称
@@ -86,7 +88,9 @@ public class UploadAction implements Action {
      * @return
      */
     public String upload() throws Exception {
+        uploadCount++;
         jsonData = new HashMap<>();
+        System.out.println("ttt");
 
         System.out.println("fileContentType---"+fileContentType);
         System.out.println("fileName---"+fileFileName);

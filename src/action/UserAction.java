@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 public class UserAction implements Action {
+
+    public static long loginCount = 0;
+    public static long regCount = 0;//注册接口调用次数
+    public static long userCount = 0;//获取用户信息调用次数
     private String uid;
     private String mobile;
     private String password;
@@ -140,12 +144,15 @@ public class UserAction implements Action {
         return nickname;
     }
 
+
+
     /**
      * 注册
      *
      * @return
      */
     public String register() {
+        regCount++;
         jsonData = new HashMap<>();
         System.out.println("===============用户注册请求：mobile：" + mobile + "   password：" + password + "===============");
 
@@ -184,9 +191,16 @@ public class UserAction implements Action {
                     user.add(userEntity);
                     System.out.println("===============用户注册成功：mobile：" + mobile + "   password：" + password + "===============");
 
-                    jsonData.put("msg", "注册成功");
-                    jsonData.put("code", "0");
-                    jsonData.put("data", userEntity);
+                    String sql = "from UserEntity where mobile = :mobile";
+                    Query query = getUser().getSf().openSession().createQuery(sql);
+                    query.setParameter("mobile", mobile);
+                    List<UserEntity> userEntityList = query.list();
+                    if (userEntityList!=null&&userEntityList.size()>0){
+                        jsonData.put("msg", "注册成功");
+                        jsonData.put("code", "0");
+                        jsonData.put("data", userEntityList.get(0));
+                    }
+
                 }
 
 
@@ -201,6 +215,7 @@ public class UserAction implements Action {
         password = null;
 
 
+        System.out.println("注册接口一共调用："+regCount+"次");
         return SUCCESS;
 
 
@@ -212,6 +227,7 @@ public class UserAction implements Action {
      * @return
      */
     public String getUserInfo() {
+        userCount++;
         jsonData = new HashMap<>();
         System.out.println("===============获取用户信息请求：uid：" + uid + "===============");
 
@@ -292,6 +308,7 @@ public class UserAction implements Action {
      * @return
      */
     public String login() {
+        loginCount++;
         jsonData = new HashMap<>();
         System.out.println("===============用户登录请求：mobile：" + mobile + "   password：" + password + "===============");
         if (!Utils.isEmpty(mobile)) {
@@ -433,7 +450,6 @@ public class UserAction implements Action {
 
         jsonData.put("msg", "添加成功");
         jsonData.put("code", "0");
-        jsonData.put("data", addrEntity);
 
 
         uid = null;
@@ -636,6 +652,9 @@ public class UserAction implements Action {
 
     @Override
     public String execute() throws Exception {
+
         return SUCCESS;
     }
+
+
 }

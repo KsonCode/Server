@@ -94,6 +94,18 @@ public class UserImpl implements User {
         transaction.commit();
     }
 
+    /**
+     * 删除购物车
+     * @param carEntity
+     */
+    public void deleteCar(CarEntity carEntity) {
+        Session session = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(carEntity);
+        transaction.commit();
+    }
+
+
     @Override
     public boolean isExist(String mobile) {
 

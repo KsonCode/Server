@@ -10,6 +10,16 @@
     <title>kson</title>
   </head>
   <body>
-error
+  <script>
+    error
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?63a21c09f2367e16d79a20fd82d6793b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
   </body>
 </html>

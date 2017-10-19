@@ -13,6 +13,7 @@ public class CarEntity {
     private long pid;
     private Integer num;
     private int selected;
+    private double price;
 
     @Id
     @Column(name = "carid")
@@ -112,5 +113,15 @@ public class CarEntity {
         result = 31 * result + (num != null ? num.hashCode() : 0);
         result = 31 * result + selected;
         return result;
+    }
+
+    @Basic
+    @Column(name = "price")
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

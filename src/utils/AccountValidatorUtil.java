@@ -22,7 +22,7 @@ public class AccountValidatorUtil {
     /**
      * 正则表达式：验证手机号
      */
-    public static final String REGEX_MOBILE = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,1,2,5-9])|(177))\\d{8}$";
+    public static final String REGEX_MOBILE = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0-9])|(177)|(176)|(173))\\d{8}$";
 
     /**
      * 正则表达式：验证邮箱
