@@ -100,6 +100,13 @@
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
             </result>
         </action>
+        <!--版本更新-->
+        <action name="getVersion" class="versionAction" method="getVersion">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
 
 
 

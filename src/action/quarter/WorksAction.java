@@ -12,10 +12,7 @@ import utils.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static common.Constants.TOKEN_TIME;
 
@@ -53,6 +50,11 @@ public class WorksAction implements Action {
 
     //文件类型
     private String coverFileContentType;
+    
+    private List<File> jokeFiles;
+    private String[] jokeFilesFileName; //文件名称
+    private String[] jokeFilesContentType; //文件类型
+    private List<String> jokeUrls = new ArrayList<>();
 
     private String latitude;
     private String longitude;
@@ -309,6 +311,34 @@ public class WorksAction implements Action {
         this.newPassword = newPassword;
     }
 
+    public List<File> getJokeFiles() {
+        return jokeFiles;
+    }
+
+    public void setJokeFiles(List<File> jokeFiles) {
+        this.jokeFiles = jokeFiles;
+    }
+
+    public String[] getJokeFilesFileName() {
+        return jokeFilesFileName;
+    }
+
+    public void setJokeFilesFileName(String[] jokeFilesFileName) {
+        this.jokeFilesFileName = jokeFilesFileName;
+    }
+
+    public String[] getJokeFilesContentType() {
+        return jokeFilesContentType;
+    }
+
+    public void setJokeFilesContentType(String[] jokeFilesContentType) {
+        this.jokeFilesContentType = jokeFilesContentType;
+    }
+
+    /**
+     * 发布段子
+     * @return
+     */
     public String publishJoke() {
         jsonData = new HashMap<>();
         System.out.println("===============发布段子===============");
@@ -376,10 +406,55 @@ public class WorksAction implements Action {
             return SUCCESS;
 
         }
+        if (Utils.isEmpty(content)){
+            jsonData.put("code", "1");
+            jsonData.put("msg", "段子内容不能为空");
 
+            return SUCCESS;
+        }
+        String realpath = ServletActionContext.getServletContext().getRealPath("/images/quarter");
         JokesEntity jokesEntity = new JokesEntity();
+//        if (jokeFiles == null) {
+//            jsonData.put("code", "1");
+//            jsonData.put("msg", "天呢！文件列表对象不能为空！");
+//
+//            return SUCCESS;
+//        }
+        StringBuffer stringBuffer = new StringBuffer();
+        if (jokeFiles!=null){
+            File savedir=new File(realpath);
+            if(!savedir.getParentFile().exists()){
+
+                savedir.getParentFile().mkdirs();
+            }
+            for (int i = 0; i < jokeFiles.size(); i++) {
+
+                try {
+                    String path = realpath + "/" + jokeFilesFileName[i];
+                    FileUtils.copyFile(jokeFiles.get(i), new File(path));//把图片写入到上面设置的路径里
+                    jokeUrls.add(Constants.IMAGES_PATH+jokeFilesFileName[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            if (jokeUrls!=null&&jokeUrls.size()>0){
+                for (String jokeUrl : jokeUrls) {
+
+                    stringBuffer.append(jokeUrl).append("|");
+                }
+            }
+            String url = stringBuffer.toString();
+            if (url!=null&&url.length()>0){
+                jokesEntity.setImgUrls(url.substring(0,url.length()-1));
+            }
+        }
+
+
         jokesEntity.setUid(Long.parseLong(uid));
         jokesEntity.setContent(content);
+
 
         quarterService.publishJoke(jokesEntity);
 
@@ -390,6 +465,10 @@ public class WorksAction implements Action {
         source = null;
         appVersion = null;
         token = null;
+        content = null;
+        jokeFiles = null;
+        jokeFilesFileName = null;
+        jokeFilesContentType = null;
 
         return SUCCESS;
     }
@@ -590,7 +669,7 @@ public class WorksAction implements Action {
             jsonData.put("msg", "视频封面文件格式不正确");
             return SUCCESS;
         }
-        String realpath = ServletActionContext.getServletContext().getRealPath("/images");
+        String realpath = ServletActionContext.getServletContext().getRealPath("/images/quarter");
         try {
             String videoPath = realpath + "/" + videoFileFileName;
             String coverPath = realpath + "/" + coverFileFileName;
@@ -601,8 +680,8 @@ public class WorksAction implements Action {
             worksEntity.setLongitude(longitude);
             worksEntity.setUid(Long.parseLong(uid));
             worksEntity.setWorkDesc(videoDesc);
-            worksEntity.setVideoUrl(Constants.IMAGES_PATH + videoPath);
-            worksEntity.setCover(Constants.IMAGES_PATH + coverPath);
+            worksEntity.setVideoUrl(Constants.IMAGES_PATH + videoFileFileName);
+            worksEntity.setCover(Constants.IMAGES_PATH + coverFileFileName);
             quarterService.publishVideo(worksEntity);
             jsonData.put("code", "0");
             jsonData.put("msg", "发布成功");

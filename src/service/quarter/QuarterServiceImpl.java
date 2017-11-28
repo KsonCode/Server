@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import pojo.User;
 import pojo.UserEntity;
 import pojo.quarter.*;
 
@@ -42,27 +43,36 @@ public class QuarterServiceImpl implements QuarterService {
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
 
-                Joke Joke = new Joke();
+                Joke joke = new Joke();
                 JokesEntity jokesEntity = list.get(i);
-                Joke.setContent(jokesEntity.getContent());
-                Joke.setUid(jokesEntity.getUid());
-                Joke.setCommentNum(jokesEntity.getCommentNum());
-                Joke.setCreateTime(jokesEntity.getCreateTime());
-                Joke.setJid(jokesEntity.getJid());
-                Joke.setPraiseNum(jokesEntity.getPraiseNum());
-                Joke.setShareNum(jokesEntity.getShareNum());
+                joke.setContent(jokesEntity.getContent());
+                joke.setUid(jokesEntity.getUid());
+                joke.setCommentNum(jokesEntity.getCommentNum());
+                joke.setCreateTime(jokesEntity.getCreateTime());
+                joke.setJid(jokesEntity.getJid());
+                joke.setPraiseNum(jokesEntity.getPraiseNum());
+                joke.setShareNum(jokesEntity.getShareNum());
+                joke.setImgUrls(jokesEntity.getImgUrls());
 
-                long uid = Joke.getUid();
+
+                long uid = joke.getUid();
 
                 String sql2 = "from UserEntity WHERE uid = :uid";
                 Query query2 = session.createQuery(sql2);
                 query2.setParameter("uid", uid);
 
                 List<UserEntity> userEntities = query2.list();
+                User user = new User();
+                user.setIcon(userEntities.get(0).getIcon());
+                user.setNickname(userEntities.get(0).getNickname());
+                user.setAge(userEntities.get(0).getAge());
+                user.setFans(String.valueOf(userEntities.get(0).getFans()));
+                user.setFollow(String.valueOf(userEntities.get(0).getFollow()));
+                user.setPraiseNum(String.valueOf(userEntities.get(0).getPraiseNum()));
 
-                Joke.setUser(userEntities.get(0));
+                joke.setUser(user);
 
-                Jokes.add(Joke);
+                Jokes.add(joke);
 
 
             }
@@ -124,8 +134,15 @@ public class QuarterServiceImpl implements QuarterService {
                     query2.setParameter("uid", uid);
 
                     List<UserEntity> userEntities = query2.list();
+                    User user = new User();
+                    user.setIcon(userEntities.get(0).getIcon());
+                    user.setNickname(userEntities.get(0).getNickname());
+                    user.setAge(userEntities.get(0).getAge());
+                    user.setFans(String.valueOf(userEntities.get(0).getFans()));
+                    user.setFollow(String.valueOf(userEntities.get(0).getFollow()));
+                    user.setPraiseNum(String.valueOf(userEntities.get(0).getPraiseNum()));
 
-                    workBean.setUser(userEntities.get(0));
+                    workBean.setUser(user);
 
                     String sql3 = "from CommentsEntity WHERE wid = :wid";
                     Query query3 = session.createQuery(sql3);
@@ -350,8 +367,16 @@ public class QuarterServiceImpl implements QuarterService {
             query2.setParameter("uid", uid);
 
             List<UserEntity> userEntities = query2.list();
+            User user = new User();
+            user.setIcon(userEntities.get(0).getIcon());
+            user.setNickname(userEntities.get(0).getNickname());
+            user.setAge(userEntities.get(0).getAge());
+            user.setFans(String.valueOf(userEntities.get(0).getFans()));
+            user.setFollow(String.valueOf(userEntities.get(0).getFollow()));
+            user.setPraiseNum(String.valueOf(userEntities.get(0).getPraiseNum()));
 
-            workBean.setUser(userEntities.get(0));
+
+            workBean.setUser(user);
             String sql3 = "from CommentsEntity WHERE wid = :wid";
             Query query3 = session.createQuery(sql3);
             query3.setParameter("wid", Long.parseLong(wid));

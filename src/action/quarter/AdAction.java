@@ -35,7 +35,7 @@ public class AdAction implements Action {
 
     public String getAd() {
         jsonData = new HashMap<>();
-        System.out.println("===============获取首页广告请求===============");
+        System.out.println("===============获取一刻钟首页广告请求===============");
 
         List<AdEntity> list = getUser().getSf().openSession().createQuery("from AdEntity ").list();
         if (list != null) {

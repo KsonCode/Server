@@ -125,6 +125,9 @@
     <bean id="worksAction" class="action.quarter.WorksAction">
         <property name="quarterService" ref="jokeServiceImpl"></property>
     </bean>
+    <bean id="versionAction" class="action.quarter.VersionAction">
+        <property name="quarterService" ref="jokeServiceImpl"></property>
+    </bean>
 
 
 </beans>

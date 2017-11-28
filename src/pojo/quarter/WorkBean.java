@@ -1,19 +1,20 @@
 package pojo.quarter;
 
+import pojo.User;
 import pojo.UserEntity;
 
 import java.util.List;
 
 public class WorkBean extends WorksEntity {
 
-    private UserEntity user;
+    private User user;
     private List<CommentsEntity> comments;
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
