@@ -1,6 +1,6 @@
 package action;
 
-import bean.*;
+import pojo.*;
 import com.opensymphony.xwork2.Action;
 import org.hibernate.query.Query;
 import service.UserImpl;
@@ -12,8 +12,10 @@ import java.util.*;
 
 public class ProductAction implements Action {
 
-    public static long  categoryCount = 0;
-    public static long  subcategoryCount = 0;
+    private String source;
+
+    public static long categoryCount = 0;
+    public static long subcategoryCount = 0;
     private String pid;
     private UserImpl user;
     private Map<String, Object> jsonData;
@@ -31,7 +33,7 @@ public class ProductAction implements Action {
     //订单
     private String price;
     private String orderId;
-    private String status;
+    private String status = "-1";
 
     //搜索
     private String keywords;
@@ -157,6 +159,14 @@ public class ProductAction implements Action {
         return num;
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     /**
      * 获取分类列表
      *
@@ -167,7 +177,7 @@ public class ProductAction implements Action {
         System.out.println("===============获取分类列表请求===============");
 
         jsonData = new HashMap<>();
-        List<Properties> list = getUser().getSf().openSession().createQuery("from CatagoryEntity ").list();
+        List<CatagoryEntity> list = getUser().getSf().openSession().createQuery("from CatagoryEntity").list();
         if (list != null) {
             jsonData.put("code", "0");
             jsonData.put("msg", "");
@@ -255,6 +265,26 @@ public class ProductAction implements Action {
         jsonData = new HashMap<>();
         System.out.println("===============商品详情请求：pid：" + pid + "===============");
 
+        if (Utils.isEmpty(source)) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "请上传公共参数");
+
+            source = null;
+
+
+            return SUCCESS;
+        }
+
+        if (!"android".equals(source)){
+            jsonData.put("code", "1");
+            jsonData.put("msg", "公共参数值不正确");
+
+            source = null;
+
+
+            return SUCCESS;
+        }
+
         if (Utils.isEmpty(pid)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！商品id不能为空");
@@ -285,6 +315,7 @@ public class ProductAction implements Action {
         }
 
         pid = null;
+        source = null;
         return SUCCESS;
     }
 
@@ -377,7 +408,25 @@ public class ProductAction implements Action {
     public String addCart() {
         jsonData = new HashMap<>();
         System.out.println("===============添加购物车请求：uid：" + uid + "   pid：" + pid + "  sellerid" + sellerid + "===============");
+        if (Utils.isEmpty(source)) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "请上传公共参数");
 
+            source = null;
+
+
+            return SUCCESS;
+        }
+
+        if (!"android".equals(source)){
+            jsonData.put("code", "1");
+            jsonData.put("msg", "公共参数值不正确");
+
+            source = null;
+
+
+            return SUCCESS;
+        }
 
         if (Utils.isEmpty(uid)) {
             jsonData.put("msg", "天呢！用户未登录或用户id不能为空");
@@ -407,11 +456,11 @@ public class ProductAction implements Action {
 
         String sql2 = "from ProductEntity where pid = :pid";
         double price = -1;
-        long  selerid = -1;
+        long selerid = -1;
         Query query2 = getUser().getSf().openSession().createQuery(sql2);
         query2.setParameter("pid", Long.parseLong(pid));
         List<ProductEntity> productList = query2.list();
-        if (productList!=null&&productList.size()>0){
+        if (productList != null && productList.size() > 0) {
             price = productList.get(0).getBargainPrice();
             selerid = productList.get(0).getSellerid();
         }
@@ -421,23 +470,23 @@ public class ProductAction implements Action {
         if (carEntityList != null && carEntityList.size() > 0) {
             CarEntity carEntity = carEntityList.get(0);
             if (carEntity != null) {
-                int num = carEntity.getNum()+1;
+                int num = carEntity.getNum() + 1;
                 carEntity.setNum(num);
-                carEntity.setPrice(ArithUtils.mul(price,num));
-                System.out.println("num=====================================:"+num);
-                System.out.println("price=====================================:"+ArithUtils.mul(price,num));
+                carEntity.setPrice(ArithUtils.mul(price, num));
+                System.out.println("num=====================================:" + num);
+                System.out.println("price=====================================:" + ArithUtils.mul(price, num));
                 getUser().updateCar(carEntity);
             }
         } else {
             CarEntity carEntity = new CarEntity();
             carEntity.setNum(1);
-            if (price!=-1){
+            if (price != -1) {
                 carEntity.setPrice(price);
-            }else{
+            } else {
                 carEntity.setPrice(0);
             }
             carEntity.setPid(Long.parseLong(pid));
-            if (selerid!=-1){
+            if (selerid != -1) {
                 carEntity.setSellerid(selerid);
             }
             carEntity.setUid(Long.parseLong(uid));
@@ -452,6 +501,7 @@ public class ProductAction implements Action {
 
         uid = null;
 //        sellerid = null;
+        source = null;
         pid = null;
 
 
@@ -510,11 +560,10 @@ public class ProductAction implements Action {
 
 
             }
-        } else{
+        } else {
             jsonData.put("msg", "购物车数据不存在");
             jsonData.put("code", "1");
         }
-
 
 
         uid = null;
@@ -536,6 +585,25 @@ public class ProductAction implements Action {
         jsonData = new HashMap<>();
         System.out.println("===============获取购物车请求：uid：" + uid + "===============");
 
+        if (Utils.isEmpty(source)) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "请上传公共参数");
+
+            source = null;
+
+
+            return SUCCESS;
+        }
+
+        if (!"android".equals(source)){
+            jsonData.put("code", "1");
+            jsonData.put("msg", "公共参数值不正确");
+
+            source = null;
+
+
+            return SUCCESS;
+        }
         if (Utils.isEmpty(uid)) {
 
             jsonData.put("code", "1");
@@ -550,7 +618,7 @@ public class ProductAction implements Action {
         Query userquery = getUser().getSf().openSession().createQuery(usersql);
         userquery.setParameter("uid", Long.parseLong(uid));
         List<UserEntity> userEntityList = userquery.list();
-        if (userEntityList!=null&&userEntityList.size()==0){
+        if (userEntityList != null && userEntityList.size() == 0) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！用户不存在");
 
@@ -587,14 +655,14 @@ public class ProductAction implements Action {
                 List<CarEntity> carEntityList1 = query1.list();
 //                List<CarEntity> carEntityList1 = getUser().getSf().openSession().createQuery("from CarEntity where sellerid = '" + carEntity.getSellerid() + "' and uid = '"+uid+"'").list();
 
-                if (carEntityList1!=null&&carEntityList1.size()>0){
+                if (carEntityList1 != null && carEntityList1.size() > 0) {
 
                     for (CarEntity entity : carEntityList1) {
 
                         System.out.println("selleid" + entity.getSellerid());
                         System.out.println("pid:" + entity.getPid());
                         ProductEntity productEntity = getProduct(String.valueOf(entity.getPid()));
-                        if (productEntity!=null){
+                        if (productEntity != null) {
 
                             Product product = new Product();
                             product.setBargainPrice(productEntity.getBargainPrice());
@@ -622,13 +690,19 @@ public class ProductAction implements Action {
                 jsonData.put("code", "0");
                 jsonData.put("msg", "请求成功");
                 jsonData.put("data", cartList);
+                uid= null;
                 System.out.println("===============获取购物车成功：uid：" + uid + "===============");
                 return SUCCESS;
             }
+        } else {
+            jsonData.put("code", "0");
+            jsonData.put("msg", "请求成功");
+            jsonData.put("data", "[]");
         }
 
         uid = null;
         jsonData = null;
+        source = null;
         return SUCCESS;
     }
 
@@ -691,7 +765,7 @@ public class ProductAction implements Action {
         Query query2 = getUser().getSf().openSession().createQuery(sql2);
         query2.setParameter("pid", Long.parseLong(pid));
         List<ProductEntity> productList = query2.list();
-        if (productList!=null&&productList.size()>0){
+        if (productList != null && productList.size() > 0) {
             price = productList.get(0).getBargainPrice();
         }
 
@@ -702,8 +776,8 @@ public class ProductAction implements Action {
             CarEntity carEntity = carEntityList.get(0);
             if (carEntity != null) {
                 carEntity.setNum(Integer.parseInt(num));
-                if (price!=-1){
-                    carEntity.setPrice(ArithUtils.mul(price,Double.parseDouble(num)));
+                if (price != -1) {
+                    carEntity.setPrice(ArithUtils.mul(price, Double.parseDouble(num)));
                 }
                 carEntity.setSelected(Integer.parseInt(selected));
 
@@ -758,7 +832,6 @@ public class ProductAction implements Action {
         query.setParameter("pid", Long.parseLong(id));
         List<ProductEntity> productEntityList = query.list();
 //        List<ProductEntity> productEntityList = getUser().getSf().openSession().createQuery("from ProductEntity where pid = '" + id + "'").list();
-
         if (productEntityList != null && productEntityList.size() > 0) {
             return productEntityList.get(0);
         }
@@ -793,15 +866,20 @@ public class ProductAction implements Action {
         query.setParameter("uid", Long.parseLong(uid));
         List<CarEntity> carEntityList = query.list();
 
-        if (carEntityList!=null&&carEntityList.size()>0){
+        if (carEntityList != null && carEntityList.size() > 0) {
             double mprice = 0;
-            double[] values = new double[carEntityList.size()];
-            for (int i = 0; i <carEntityList.size() ; i++) {
-                values[i] = carEntityList.get(i).getPrice();
+            List<Double> prices = new ArrayList<>();
+//            double[] values = new double[carEntityList.size()];
+            for (int i = 0; i < carEntityList.size(); i++) {
+                if (carEntityList.get(i).getSelected() == 1) {
+                    prices.add(carEntityList.get(i).getPrice());
+                }
+//                values[i] = carEntityList.get(i).getPrice();
             }
-            if (values!=null&&values.length>0){
-                mprice = ArithUtils.add(values);
-                if (mprice!=Double.parseDouble(price)){
+            if (prices != null && prices.size() > 0) {
+                System.out.println("pricesize:" + prices.size());
+                mprice = ArithUtils.add(prices);
+                if (mprice != Double.parseDouble(price)) {
                     jsonData.put("msg", "天呢！有钱人，总价不正确！");
                     jsonData.put("code", "1");
                     return SUCCESS;
@@ -819,14 +897,12 @@ public class ProductAction implements Action {
             jsonData.put("code", "0");
             System.out.println("===============订单创建成功：uid：" + uid + "   price：" + price + "===============");
 
-        }else{
+        } else {
             jsonData.put("msg", "购物车不能为空");
             jsonData.put("code", "1");
             System.out.println("===============订单创建失败，购物车为空：uid：" + uid + "   price：" + price + "===============");
 
         }
-
-
 
 
         uid = null;
@@ -845,12 +921,19 @@ public class ProductAction implements Action {
     public String updateOrder() {
         jsonData = new HashMap<>();
         System.out.println("===============更新订单：uid：" + uid + "   orderId：" + orderId + "===============");
-
         if (Utils.isEmpty(uid)) {
             jsonData.put("msg", "天呢！用户未登录或用户id不能为空");
             jsonData.put("code", "1");
-
             return SUCCESS;
+        }
+
+        if (!Utils.isEmpty(status)) {
+            if ("-1".equals(status)){
+
+                jsonData.put("msg", "请传入status参数，为0、1或2");
+                jsonData.put("code", "1");
+                return SUCCESS;
+            }
         }
 
         if (!Utils.isEmpty(orderId)) {
@@ -904,7 +987,7 @@ public class ProductAction implements Action {
         }
 
         uid = null;
-        status = "0";
+        status = "-1";
 
         return SUCCESS;
 
@@ -929,41 +1012,78 @@ public class ProductAction implements Action {
 
         }
 
-        String sql = "from OrdersEntity where uid = :uid";
-        Query query = getUser().getSf().openSession().createQuery(sql);
-        query.setParameter("uid", Long.parseLong(uid));
-        query.setMaxResults(10);
-        System.out.println("page:" + page);
-        if (page != null) {
 
-            if (AccountValidatorUtil.isInteger(page)) {
+        if (AccountValidatorUtil.isInteger(status)) {
 
-                if (page.equals(1)) {
-                    query.setFirstResult(0);
-                } else {
-                    query.setFirstResult((Integer.parseInt(page) - 1) * 10);
-                }
-            } else {
-                jsonData.put("code", "1");
-                jsonData.put("msg", "God！page必须是数字");
-
-                return SUCCESS;
+            String sql = "";
+            System.out.println("page:" + page + " status:" + status);
+            if (Integer.parseInt(status) == -1) {//moren
+                sql = "from OrdersEntity where uid = :uid";
+            } else if (Integer.parseInt(status) == 0) {//moren
+                sql = "from OrdersEntity where uid = :uid and status = :status";
+            } else if (Integer.parseInt(status) == 1) {//xiaoliang
+                sql = "from OrdersEntity where uid = :uid and status = :status ";
+            } else if (Integer.parseInt(status) == 2) {//jiage
+                sql = "from OrdersEntity where uid = :uid and status = :status";
             }
-        }
-        List<OrdersEntity> ordersEntities = query.list();
+            Query query = getUser().getSf().openSession().createQuery(sql);
+            query.setParameter("uid", Long.parseLong(uid));
+            if (!"-1".equals(status)){
+
+                query.setParameter("status", Integer.parseInt(status));
+            }
+            query.setMaxResults(10);
+            System.out.println("page:" + page);
+            if (page != null) {
+
+                if (AccountValidatorUtil.isInteger(page)) {
+
+                    if (page.equals(1)) {
+                        query.setFirstResult(0);
+                    } else {
+                        query.setFirstResult((Integer.parseInt(page) - 1) * 10);
+                    }
+                } else {
+                    jsonData.put("code", "1");
+                    jsonData.put("msg", "God！page必须是数字");
+
+                    return SUCCESS;
+                }
+            }
+            if (page != null) {
+
+                if (AccountValidatorUtil.isInteger(page)) {
+
+                    if (page.equals(1)) {
+                        query.setFirstResult(0);
+                    } else {
+                        query.setFirstResult((Integer.parseInt(page) - 1) * 10);
+                    }
+                } else {
+                    jsonData.put("code", "1");
+                    jsonData.put("msg", "God！page必须是数字");
+
+                    return SUCCESS;
+                }
+            }
+            List<OrdersEntity> ordersEntities = query.list();
 
 //        List<OrdersEntity> ordersEntities = getUser().getSf().openSession().createQuery("from OrdersEntity where uid = '" + uid + "'").list();
 
 
-        if (ordersEntities != null) {
-            jsonData.put("code", "0");
-            jsonData.put("msg", "请求成功");
-            jsonData.put("page", page);
-            jsonData.put("data", ordersEntities);
-            System.out.println("===============订单列表成功：uid：" + uid + "===============");
+            if (ordersEntities != null) {
+                jsonData.put("code", "0");
+                jsonData.put("msg", "请求成功");
+                jsonData.put("page", page);
+                jsonData.put("data", ordersEntities);
+                System.out.println("===============订单列表成功：uid：" + uid + "===============");
 
+            }
         }
+
+
         uid = null;
+        status = "-1";
         return SUCCESS;
     }
 
@@ -976,6 +1096,15 @@ public class ProductAction implements Action {
         jsonData = new HashMap<>();
         System.out.println("===============商品搜索请求：keywords：" + keywords + "===============");
 
+        if (Utils.isEmpty(source)) {
+            jsonData.put("code", "1");
+            jsonData.put("msg", "请上传公共参数");
+
+            source = null;
+
+
+            return SUCCESS;
+        }
         if (Utils.isEmpty(keywords)) {
 
             jsonData.put("code", "1");
@@ -1042,6 +1171,7 @@ public class ProductAction implements Action {
         }
         page = "1";
         keywords = null;
+        source = null;
         return SUCCESS;
     }
 

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0029)http://120.27.23.105/news/ -->
+<!-- saved from url=(0029)https://www.zhaoapi.cn/news/ -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=GBK">
@@ -16,27 +16,27 @@
 <body style="">
 <div id="top">
     <div class="wid">
-        <div id="logo"><a href="http://120.27.23.105/">找数据</a></div>
+        <div id="logo"><a href="https://www.zhaoapi.cn/">找数据</a></div>
         <div id="logocenter">
             <div id="nav">
                 <ul>
-                    <li><a href="http://120.27.23.105/">首页</a></li>
-                    <li><a href="http://120.27.23.105/api/">API</a></li>
-                    <li><a href="http://120.27.23.105/news/" class="on">公告</a></li>
+                    <li><a href="https://www.zhaoapi.cn/">首页</a></li>
+                    <li><a href="https://www.zhaoapi.cn/api/">API</a></li>
+                    <li><a href="https://www.zhaoapi.cn/news/" class="on">公告</a></li>
                 </ul>
             </div>
         </div>
         <div id="logoright">
             <div id="searchbox">
-                <form action="http://120.27.23.105/search/">
+                <form action="https://www.zhaoapi.cn/search/">
                     <input id="keyword" type="text" name="keyword" placeholder="请输入API名称，如：公交" value=""><input
                         type="submit" id="searchbtn" value="搜索">
                 </form>
             </div>
             <div id="logindiv">
                 <div id="nologinbox">
-                    <a href="http://120.27.23.105/my/login.jsp" class="on" rel="nofollow">登录</a><span>|</span><a
-                        href="http://120.27.23.105/my/reg.jsp" rel="nofollow">注册</a></div>
+                    <a href="https://www.zhaoapi.cn/my/login.jsp" class="on" rel="nofollow">登录</a><span>|</span><a
+                        href="https://www.zhaoapi.cn/my/reg.jsp" rel="nofollow">注册</a></div>
             </div>
         </div>
         <div class="clear"></div>
@@ -44,7 +44,7 @@
 </div>
 <div class="wid clearfix" id="news">
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/491">
+        <a href="https://www.zhaoapi.cn/news/detail/491">
             <div class="nileft">
                 <img src="./res/120431_48083.png" height="160" alt="违章城市接口更新通知">
             </div>
@@ -60,7 +60,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/492">
+        <a href="https://www.zhaoapi.cn/news/detail/492">
             <div class="nileft">
                 <img src="./res/143326_74782.png" height="160" alt="找数据违章查询代办小程序上线了，长啥样？">
             </div>
@@ -76,7 +76,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/490">
+        <a href="https://www.zhaoapi.cn/news/detail/490">
             <div class="nileft">
                 <img src="./res/215733_64185.jpg" height="160" alt="银行卡校验维护通知">
             </div>
@@ -92,7 +92,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/489">
+        <a href="https://www.zhaoapi.cn/news/detail/489">
             <div class="nileft">
                 <img src="./res/news.png" height="160" alt="关于“彩票开奖”调价的通知">
             </div>
@@ -108,7 +108,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/488">
+        <a href="https://www.zhaoapi.cn/news/detail/488">
             <div class="nileft">
                 <img src="./res/162010_69405.jpg" height="160" alt="银行卡校验（浦发银行）维护通知">
             </div>
@@ -124,7 +124,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/487">
+        <a href="https://www.zhaoapi.cn/news/detail/487">
             <div class="nileft">
                 <img src="./res/news.png" height="160" alt="2017-05-20 服务器维护通知">
             </div>
@@ -140,7 +140,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/486">
+        <a href="https://www.zhaoapi.cn/news/detail/486">
             <div class="nileft">
                 <img src="./res/20170113072235_97015.jpg" height="160" alt="2017-04-09服务器维护通知">
             </div>
@@ -156,7 +156,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/485">
+        <a href="https://www.zhaoapi.cn/news/detail/485">
             <div class="nileft">
                 <img src="./res/20170113072235_97015.jpg" height="160" alt="2017-03-05服务器维护通知">
             </div>
@@ -172,7 +172,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/484">
+        <a href="https://www.zhaoapi.cn/news/detail/484">
             <div class="nileft">
                 <img src="./res/093117_16099.jpg" height="160" alt="找数据“全场数据5折起，数据有买就有送”活动到期通知！">
             </div>
@@ -188,7 +188,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="newsitem">
-        <a href="http://120.27.23.105/news/detail/483">
+        <a href="https://www.zhaoapi.cn/news/detail/483">
             <div class="nileft">
                 <img src="./res/063244_44211.jpg" height="160" alt="关于本站已全部支持http加密协议的通知">
             </div>
@@ -210,19 +210,19 @@
         <span class="current">1</span>
 
 
-        <a href="http://120.27.23.105/news/0/2">2</a>
+        <a href="https://www.zhaoapi.cn/news/0/2">2</a>
 
 
-        <a href="http://120.27.23.105/news/0/3">3</a>
+        <a href="https://www.zhaoapi.cn/news/0/3">3</a>
 
 
-        <a href="http://120.27.23.105/news/0/4">4</a>
+        <a href="https://www.zhaoapi.cn/news/0/4">4</a>
 
 
-        <a href="http://120.27.23.105/news/0/5">5</a>
+        <a href="https://www.zhaoapi.cn/news/0/5">5</a>
 
 
-        <a href="http://120.27.23.105/news/0/2" class="pnext">下一页</a>
+        <a href="https://www.zhaoapi.cn/news/0/2" class="pnext">下一页</a>
     </div>
 </div>
 
@@ -271,17 +271,17 @@
             <div class="footitem">
                 <h3>首页</h3>
                 <ul>
-                    <li><a href="http://120.27.23.105/api/">所有API</a></li>
-                    <li><a href="http://120.27.23.105/news/">新闻动态</a></li>
+                    <li><a href="https://www.zhaoapi.cn/api/">所有API</a></li>
+                    <li><a href="https://www.zhaoapi.cn/news/">新闻动态</a></li>
                 </ul>
             </div>
             <div class="footitem">
                 <h3>关于</h3>
                 <ul>
-                    <li><a href="http://120.27.23.105/about/" rel="nofollow">关于找数据</a></li>
-                    <li><a href="http://120.27.23.105/contact/" rel="nofollow">联系我们</a></li>
-                    <li><a href="http://120.27.23.105/job/" rel="nofollow">公司招聘</a></li>
-                    <li><a href="http://120.27.23.105/honor/" rel="nofollow">公司荣誉</a></li>
+                    <li><a href="https://www.zhaoapi.cn/about/" rel="nofollow">关于找数据</a></li>
+                    <li><a href="https://www.zhaoapi.cn/contact/" rel="nofollow">联系我们</a></li>
+                    <li><a href="https://www.zhaoapi.cn/job/" rel="nofollow">公司招聘</a></li>
+                    <li><a href="https://www.zhaoapi.cn/honor/" rel="nofollow">公司荣誉</a></li>
                 </ul>
             </div>
         </div>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+    <!-- 所有的action都应该放在对应的package下 -->
+    <!--action的class属性不再是具体的类,而是spring配置文件配置的bean id  pakage name 貌似不起作用-->
+    <package name="quarter" namespace="/quarter" extends="json-default,default">
+        <action name="getAd" class="qad" method="getAd">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
+        <!--发布段子-->
+        <action name="publishJoke" class="worksAction" method="publishJoke">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--获取段子列表-->
+        <action name="getJokes" class="worksAction" method="getJokes">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--发布视频作品-->
+        <action name="publishVideo" class="worksAction" method="publishVideo">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--获取视频作品列表-->
+        <action name="getVideos" class="worksAction" method="getVideos">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--获取用户视频作品列表-->
+        <action name="getUserVideos" class="worksAction" method="getUserVideos">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--获取用户视频作品列表-->
+        <action name="follow" class="worksAction" method="follow">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--获取关注用户列表-->
+        <action name="getFollowUsers" class="worksAction" method="getFollowUsers">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--收藏作品-->
+        <action name="addFavorite" class="worksAction" method="addFavorite">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--取消收藏作品-->
+        <action name="cancelFavorite" class="worksAction" method="cancelFavorite">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
+        <!--点赞-->
+        <action name="praise" class="worksAction" method="praise">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--评论-->
+        <action name="comment" class="worksAction" method="comment">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
+        <!--注册-->
+        <action name="register" class="worksAction" method="reg">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--重置密码-->
+        <action name="resetPass" class="worksAction" method="resetPass">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+        <!--获取视频详情-->
+        <action name="getVideoDetail" class="worksAction" method="getVideoDetail">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+
+
+
+    </package>
+
+
+</struts>

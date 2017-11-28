@@ -1,12 +1,12 @@
 package service;
 
-import bean.AddrEntity;
-import bean.CarEntity;
-import bean.OrdersEntity;
-import bean.UserEntity;
+import pojo.AddrEntity;
+import pojo.CarEntity;
+import pojo.OrdersEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import pojo.UserEntity;
 
 import java.util.List;
 

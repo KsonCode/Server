@@ -1,20 +1,26 @@
 package action;
 
-import bean.AddrEntity;
-import bean.UserEntity;
+import pojo.AddrEntity;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import org.hibernate.query.Query;
+import pojo.UserEntity;
+import pojo.quarter.FollowEntity;
 import service.UserImpl;
-import utils.AccountValidatorUtil;
-import utils.Utils;
+import utils.*;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.*;
 
 public class UserAction implements Action {
+
+    private final int TOKEN_TIME = 60*1000;//1天
+//    private final int TOKEN_TIME = 60*1000*60*24;//1天
+
+    private String token;
+    private String appVersion;
+    private String source;
 
     public static long loginCount = 0;
     public static long regCount = 0;//注册接口调用次数
@@ -38,6 +44,31 @@ public class UserAction implements Action {
     private String addr;
     private String status;
     private String addrid;
+
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+    }
+
+    public String getAppVersion() {
+        return appVersion;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public void setAddrid(String addrid) {
         this.addrid = addrid;
@@ -161,6 +192,7 @@ public class UserAction implements Action {
             if (!AccountValidatorUtil.isInteger(mobile)){
                 jsonData.put("msg", "请输入正确的手机号码");
                 jsonData.put("code", "1");
+                jsonData.put("data", "{}");
                 return SUCCESS;
             }
         }
@@ -168,11 +200,13 @@ public class UserAction implements Action {
             if (!AccountValidatorUtil.isMobile(mobile)){
                 jsonData.put("msg", "请输入正确的手机号码");
                 jsonData.put("code", "1");
+                jsonData.put("data", "{}");
                 return SUCCESS;
             }
             if (!AccountValidatorUtil.isPassword(password)){
                 jsonData.put("msg", "密码格式有问题，不能少于6位数");
                 jsonData.put("code", "1");
+                jsonData.put("data", "{}");
                 return SUCCESS;
             }
 
@@ -196,9 +230,19 @@ public class UserAction implements Action {
                     query.setParameter("mobile", mobile);
                     List<UserEntity> userEntityList = query.list();
                     if (userEntityList!=null&&userEntityList.size()>0){
+                        UserEntity userEntity1  = userEntityList.get(0);
+                        //uid md5 加密生成appkey，uid和password用aes加密
+
+                        userEntity1.setAppkey(MD5Tools.get16Md5Value(String.valueOf(userEntity1.getUid())));
+                        String encryptResultStr = AesUtils.parseByte2HexStr(AesUtils.encrypt(String.valueOf(userEntity1.getUid()),userEntity1.getPassword()));
+                        userEntity1.setPassword(AesUtils.parseByte2HexStr(AesUtils.encrypt(userEntity1.getPassword(),"kson")));
+                        userEntity1.setAppsecret(encryptResultStr);
+
+
+                        user.update(userEntity1);
                         jsonData.put("msg", "注册成功");
                         jsonData.put("code", "0");
-                        jsonData.put("data", userEntityList.get(0));
+//                        jsonData.put("data", userEntityList.get(0));
                     }
 
                 }
@@ -207,6 +251,7 @@ public class UserAction implements Action {
         } else {
             jsonData.put("msg", "天呢！用户名或密码不能为空");
             jsonData.put("code", "1");
+            jsonData.put("data","{}");
             System.out.println("===============用户名或密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
 
         }
@@ -221,6 +266,8 @@ public class UserAction implements Action {
 
     }
 
+
+
     /**
      * 获取用户信息
      *
@@ -230,7 +277,6 @@ public class UserAction implements Action {
         userCount++;
         jsonData = new HashMap<>();
         System.out.println("===============获取用户信息请求：uid：" + uid + "===============");
-
 
         if (!Utils.isEmpty(uid)) {
             String sql = "from UserEntity where uid = :uid";
@@ -242,6 +288,23 @@ public class UserAction implements Action {
                 if (userEntityList.size() > 0) {
                     UserEntity userEntity = userEntityList.get(0);
 
+                    String followsql = "from FollowEntity where uid = :uid";
+                    Query followquery = getUser().getSf().openSession().createQuery(followsql);
+                    followquery.setParameter("uid", Long.parseLong(uid));
+                    List<FollowEntity> followEntities = followquery.list();
+                    if (followEntities!=null){
+                        userEntity.setFollow(followEntities.size());
+                    }
+                    String fansql = "from FollowEntity where followId = :followId";
+                    Query fansquery = getUser().getSf().openSession().createQuery(fansql);
+                    fansquery.setParameter("followId", Long.parseLong(uid));
+                    List<FollowEntity> fansEntities = fansquery.list();
+                    if (followEntities!=null){
+                        userEntity.setFollow(followEntities.size());
+                    }
+                    if (fansEntities!=null){
+                        userEntity.setFans(fansEntities.size());
+                    }
                     System.out.println("session:" + ActionContext.getContext().getSession());
                     if (userEntity != null) {
                         System.out.println("===============获取用户信息成功：uid：" + uid + "===============");
@@ -308,88 +371,167 @@ public class UserAction implements Action {
      * @return
      */
     public String login() {
+
+
+        System.out.println("token:"+token);
+
         loginCount++;
         jsonData = new HashMap<>();
         System.out.println("===============用户登录请求：mobile：" + mobile + "   password：" + password + "===============");
-        if (!Utils.isEmpty(mobile)) {
-            if (!AccountValidatorUtil.isInteger(mobile)) {
-                jsonData.put("msg", "请输入正确的手机号码");
-                jsonData.put("code", "1");
-                return SUCCESS;
-            }
-        }
-        if (!Utils.isEmpty(mobile)&&!Utils.isEmpty(password)) {
-            if (!AccountValidatorUtil.isMobile(mobile)){
-                jsonData.put("msg", "请输入正确的手机号码");
-                jsonData.put("code", "1");
-                return SUCCESS;
-            }
-            if (!AccountValidatorUtil.isPassword(password)){
-                jsonData.put("msg", "密码格式有问题，不能少于6位数");
-                jsonData.put("code", "1");
-                return SUCCESS;
-            }
-            String sql = "from UserEntity where mobile = :mobile";
-            Query query = getUser().getSf().openSession().createQuery(sql);
-            query.setParameter("mobile", mobile);
-            List<UserEntity> list =  query.list();
-            //当前对象是否有记录
+//       if (!Utils.isEmpty(token)){
+//
+//           String sql = "from UserEntity where token = :token";
+//           Query query = getUser().getSf().openSession().createQuery(sql);
+//           query.setParameter("token", token);
+//           List<UserEntity> list =  query.list();
+//           if (list!=null&&list.size()>0){
+//               if (new Date().getTime()-TimeUtils.getMill(list.get(0).getCreatetime().toString())>TOKEN_TIME){
+//                   jsonData.put("msg", "token超时");
+//                   jsonData.put("code", "2");
+//                   token = null;
+//                   return SUCCESS;
+//               }
+//               jsonData.put("msg", "登录成功");
+//               jsonData.put("code", "0");
+//               jsonData.put("data",list.get(0));
+//               token = null;
+//               return SUCCESS;
+//           }else{
+//               jsonData.put("msg", "用户未登录");
+//               jsonData.put("code", "1");
+//               return SUCCESS;
+//           }
+//
+//       }else{
+
+//           if (Utils.isEmpty(source)||!source.equals("android")){
+//               jsonData.put("msg", "非法地址");
+//               jsonData.put("code", "1");
+//               return SUCCESS;
+//           }
+           if (!Utils.isEmpty(mobile)) {
+               if (!AccountValidatorUtil.isInteger(mobile)) {
+                   jsonData.put("msg", "请输入正确的手机号码");
+                   jsonData.put("code", "1");
+                   return SUCCESS;
+               }
+           }
+           if (!Utils.isEmpty(mobile)&&!Utils.isEmpty(password)) {
+               if (!AccountValidatorUtil.isMobile(mobile)){
+                   jsonData.put("msg", "请输入正确的手机号码");
+                   jsonData.put("code", "1");
+                   return SUCCESS;
+               }
+               if (!AccountValidatorUtil.isPassword(password)){
+                   jsonData.put("msg", "密码格式有问题，不能少于6位数");
+                   jsonData.put("code", "1");
+                   return SUCCESS;
+               }
+               String sql = "from UserEntity where mobile = :mobile";
+               Query query = getUser().getSf().openSession().createQuery(sql);
+               query.setParameter("mobile", mobile);
+               List<UserEntity> list =  query.list();
+               //当前对象是否有记录
 //            List<UserEntity> list = getUser().getSf().openSession().createQuery("from UserEntity where mobile = '" + mobile + "'").list();
 
-            if (list != null && list.size() > 0) {
-                UserEntity user = list.get(0);
-                if (user!=null){
+               if (list != null && list.size() > 0) {
+                   UserEntity userEntity = list.get(0);
+                   if (userEntity!=null){
 
-                    if (mobile.equals(user.getMobile()) && user.getPassword().equals(password)) {
-                        jsonData.put("code", "0");
-                        jsonData.put("msg", "登录成功");
-                        jsonData.put("data", user);
-                        System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
-                    } else {
-                        if (mobile.equals(user.getMobile())&&!password.equals(user.getPassword())){
-                            jsonData.put("code", "1");
-                            jsonData.put("msg", "天呢！密码错误");
+                       //解密
+                       byte[] decryptFrom = AesUtils.parseHexStr2Byte(userEntity.getPassword());
+                       byte[] decryptResult = AesUtils.decrypt(decryptFrom,"kson");//kson为密码加密密钥
+                       if (decryptResult!=null){
+                           System.out.println("解密后：" + new String(decryptResult));
+                           String decryptPass = new String(decryptResult);
+                           if (mobile.equals(userEntity.getMobile()) && decryptPass.equals(password)) {
+                               userEntity.setCreatetime(Timestamp.valueOf(TimeUtils.getDateTimeFormat(new Date())));
 
-                            System.out.println("===============密码错误：mobile：" + mobile + "   password：" + password + "===============");
-                        }else if (!mobile.equals(user.getMobile())&&password.equals(user.getPassword())){
-                            jsonData.put("code", "1");
-                            jsonData.put("msg", "天呢！用户名错误");
+                               //用户名和加密的密码生成token
+                               String token = AesUtils.parseByte2HexStr(AesUtils.encrypt(String.valueOf(userEntity.getUid()),userEntity.getPassword()));
 
-                            System.out.println("===============用户名错误：mobile：" + mobile + "   password：" + password + "===============");
-                        }
-                    }
-                }
-            } else {
-                jsonData.put("code", "1");
-                jsonData.put("msg", "天呢！用户不存在");
-                System.out.println("===============用户不存在：mobile：" + mobile + "   password：" + password + "===============");
+                               userEntity.setToken(token);
+                               getUser().update(userEntity);
+                               jsonData.put("code", "0");
+                               jsonData.put("msg", "登录成功");
+                               jsonData.put("data", userEntity);
+                               System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
+                           } else {
+                               if (mobile.equals(userEntity.getMobile())&&!password.equals(decryptPass)){
+                                   jsonData.put("code", "1");
+                                   jsonData.put("msg", "天呢！密码错误");
+                                   System.out.println("===============密码错误：mobile：" + mobile + "   password：" + password + "===============");
+//                                return  ERROR;
+                               }else if (!mobile.equals(userEntity.getMobile())&&password.equals(decryptPass)){
+                                   jsonData.put("code", "1");
+                                   jsonData.put("msg", "天呢！用户名错误");
 
-            }
-        } else {
-            if (Utils.isEmpty(mobile) && !Utils.isEmpty(password)) {
-                jsonData.put("msg", "天呢！用户名不能为空");
-                jsonData.put("code", "1");
-                System.out.println("===============用户名不能为空：mobile：" + mobile + "   password：" + password + "===============");
+                                   System.out.println("===============用户名错误：mobile：" + mobile + "   password：" + password + "===============");
+                               }
+                           }
 
-            }
-            if (Utils.isEmpty(password) && !Utils.isEmpty(mobile)) {
-                jsonData.put("msg", "天呢！密码不能为空");
-                jsonData.put("code", "1");
-                System.out.println("===============密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
+                       }else{
 
-            }
-            if (Utils.isEmpty(password) &&Utils.isEmpty(mobile)) {
-                jsonData.put("msg", "天呢！用户名和密码怎么都是空");
-                jsonData.put("code", "1");
-                System.out.println("===============用户名和密码都为空：mobile：" + mobile + "   password：" + password + "===============");
+                           if (mobile.equals(userEntity.getMobile()) && userEntity.getPassword().equals(password)) {
+                               userEntity.setCreatetime(Timestamp.valueOf(TimeUtils.getDateTimeFormat(new Date())));
+                               System.out.println("tttt1============================:"+userEntity.getCreatetime());
+                               //用户名和加密的密码生成token
+                               String token = AesUtils.parseByte2HexStr(AesUtils.encrypt(String.valueOf(userEntity.getUid()),userEntity.getPassword()));
 
-            }
+                               userEntity.setToken(token);
+                               getUser().update(userEntity);
+                               jsonData.put("code", "0");
+                               jsonData.put("msg", "登录成功");
+                               jsonData.put("data", userEntity);
+                               System.out.println("===============用户登录成功：mobile：" + mobile + "   password：" + password + "===============");
+                           } else {
+                               if (mobile.equals(userEntity.getMobile())&&!password.equals(userEntity.getPassword())){
+                                   jsonData.put("code", "1");
+                                   jsonData.put("msg", "天呢！密码错误");
+
+                                   System.out.println("===============密码错误：mobile：" + mobile + "   password：" + password + "===============");
+                               }else if (!mobile.equals(userEntity.getMobile())&&password.equals(userEntity.getPassword())){
+                                   jsonData.put("code", "1");
+                                   jsonData.put("msg", "天呢！用户名错误");
+
+                                   System.out.println("===============用户名错误：mobile：" + mobile + "   password：" + password + "===============");
+                               }
+                           }
+                       }
+
+                   }
+               } else {
+                   jsonData.put("code", "1");
+                   jsonData.put("msg", "天呢！用户不存在");
+                   System.out.println("===============用户不存在：mobile：" + mobile + "   password：" + password + "===============");
+               }
+           } else {
+               if (Utils.isEmpty(mobile) && !Utils.isEmpty(password)) {
+                   jsonData.put("msg", "天呢！用户名不能为空");
+                   jsonData.put("code", "1");
+                   System.out.println("===============用户名不能为空：mobile：" + mobile + "   password：" + password + "===============");
+
+               }
+               if (Utils.isEmpty(password) && !Utils.isEmpty(mobile)) {
+                   jsonData.put("msg", "天呢！密码不能为空");
+                   jsonData.put("code", "1");
+                   System.out.println("===============密码不能为空：mobile：" + mobile + "   password：" + password + "===============");
+
+               }
+               if (Utils.isEmpty(password) &&Utils.isEmpty(mobile)) {
+                   jsonData.put("msg", "天呢！用户名和密码怎么都是空");
+                   jsonData.put("code", "1");
+                   System.out.println("===============用户名和密码都为空：mobile：" + mobile + "   password：" + password + "===============");
+
+               }
 
 
-        }
+//           }
+       }
 
         mobile = null;
         password = null;
+        token = null;
 
         return SUCCESS;
     }
@@ -430,13 +572,11 @@ public class UserAction implements Action {
             jsonData.put("msg", "天呢！手机号不能为空");
             return SUCCESS;
         }
-
         if (Utils.isEmpty(name)) {
             jsonData.put("code", "1");
             jsonData.put("msg", "天呢！姓名不能为空");
             return SUCCESS;
         }
-
         AddrEntity addrEntity = new AddrEntity();
 
         addrEntity.setAddr(addr);

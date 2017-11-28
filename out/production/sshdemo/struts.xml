@@ -29,9 +29,21 @@
     <constant name="struts.objectFactory" value="spring" />
 
 
+    <include file="web_struts.xml"/>
+    <include file="api_struts.xml"/>
+    <include file="quarter_struts.xml"/>
+
     <!--如果action不存在，则跳转到默认action-->
     <package name="default" namespace="/" extends="json-default">
 
+        <interceptors>
+            <interceptor name="reqCheck" class="utils.RequestInterceptor"/>
+            <interceptor-stack name="reqStack">
+                <interceptor-ref name="reqCheck"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="reqStack"/>
         <default-action-ref name="notFound" />
         <action name="notFound" class="notFound" method="notFound">
             <result type="json">
@@ -43,6 +55,20 @@
     <!-- 所有的action都应该放在对应的package下 -->
     <!--action的class属性不再是具体的类,而是spring配置文件配置的bean id  pakage name 貌似不起作用-->
     <package name="base" namespace="/user" extends="json-default,default">
+
+        <!--<interceptors>-->
+            <!--&lt;!&ndash; 默认拦截器 &ndash;&gt;-->
+            <!--<interceptor name="authority" class="utils.TokenInterceptor" />-->
+
+            <!--&lt;!&ndash; 拦截器栈 &ndash;&gt;-->
+            <!--<interceptor-stack name="myStack">-->
+                <!--<interceptor-ref name="defaultStack" />-->
+                <!--<interceptor-ref name="authority" />-->
+            <!--</interceptor-stack>-->
+
+        <!--</interceptors>-->
+        <!--<default-interceptor-ref name="myStack" />-->
+
         <action name="add" class="user" method="add">
             <result type="json">
                 <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
@@ -216,6 +242,12 @@
             </result>
         </action>
     </package>
-
+    <package name="version" namespace="/version" extends="json-default,default">
+        <action name="getVersion" class="version" method="getVersion">
+            <result type="json">
+                <param name="root">jsonData</param>     <!-- 这里的jsonData对应action里要返回的map对象 -->
+            </result>
+        </action>
+    </package>
 
 </struts>

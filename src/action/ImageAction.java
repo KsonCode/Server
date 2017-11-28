@@ -1,11 +1,6 @@
 package action;
 
-import bean.AdEntity;
-import bean.ProductEntity;
-import bean.ad.BAdBean;
-import bean.ad.MAdBean;
-import bean.study.ImagesEntity;
-import com.opensymphony.xwork2.ActionSupport;
+import pojo.study.ImagesEntity;
 import org.hibernate.query.Query;
 import service.UserImpl;
 

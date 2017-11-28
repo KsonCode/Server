@@ -1,6 +1,6 @@
 package service;
 
-import bean.UserEntity;
+import pojo.UserEntity;
 
 public interface User {
     void add(UserEntity user);

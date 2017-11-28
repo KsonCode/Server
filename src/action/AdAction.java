@@ -1,9 +1,9 @@
 package action;
 
-import bean.AdEntity;
-import bean.ProductEntity;
-import bean.ad.BAdBean;
-import bean.ad.MAdBean;
+import pojo.AdEntity;
+import pojo.ProductEntity;
+import pojo.ad.BAdBean;
+import pojo.ad.MAdBean;
 import com.opensymphony.xwork2.Action;
 import org.hibernate.query.Query;
 import service.UserImpl;

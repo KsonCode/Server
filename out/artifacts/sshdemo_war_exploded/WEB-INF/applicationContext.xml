@@ -42,17 +42,24 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>bean.UserEntity</value>
-                <value>bean.AdEntity</value>
-                <value>bean.CatagoryEntity</value>
-                <value>bean.ProductcatagoryEntity</value>
-                <value>bean.ProductsubcatagoryEntity</value>
-                <value>bean.SellerEntity</value>
-                <value>bean.CarEntity</value>
-                <value>bean.OrdersEntity</value>
-                <value>bean.AddrEntity</value>
-                <value>bean.ProductEntity</value>
-                <value>bean.study.ImagesEntity</value>
+                <value>pojo.AdEntity</value>
+                <value>pojo.CatagoryEntity</value>
+                <value>pojo.ProductcatagoryEntity</value>
+                <value>pojo.ProductsubcatagoryEntity</value>
+                <value>pojo.SellerEntity</value>
+                <value>pojo.CarEntity</value>
+                <value>pojo.AddrEntity</value>
+                <value>pojo.ProductEntity</value>
+                <value>pojo.study.ImagesEntity</value>
+                <value>pojo.UserEntity</value>
+                <value>pojo.OrdersEntity</value>
+                <value>pojo.VersionEntity</value>
+                <value>pojo.quarter.CommentsEntity</value>
+                <value>pojo.quarter.WorksEntity</value>
+                <value>pojo.quarter.JokesEntity</value>
+                <value>pojo.quarter.FollowEntity</value>
+                <value>pojo.quarter.WorkfavoriteEntity</value>
+                <value>pojo.quarter.WorkpraiseEntity</value>
             </list>
         </property>
 
@@ -88,4 +95,36 @@
     <bean id="image" class="action.ImageAction">
         <property name="user" ref="userImpl"/>
     </bean>
+    <bean id="version" class="action.VersionAction">
+        <property name="user" ref="userImpl"/>
+    </bean>
+
+    <!--web-->
+    <!--userAction对应struts里面的class，user已经赋值-->
+    <bean id="iuser" class="action.web.UserAction">
+        <property name="user" ref="userImpl"></property>
+    </bean>
+
+    <!--web-->
+    <!--天气api-->
+    <bean id="weather" class="action.api.WeatherAction">
+        <property name="user" ref="userImpl"></property>
+    </bean>
+
+
+    <!--一刻钟-->
+    <bean id="qad" class="action.quarter.AdAction">
+        <property name="user" ref="userImpl"></property>
+    </bean>
+
+    <!--hibernate测试加入-->
+    <bean id="jokeServiceImpl" class="service.quarter.QuarterServiceImpl">
+        <property name="sf" ref="sessionFactory"></property>
+    </bean>
+
+    <bean id="worksAction" class="action.quarter.WorksAction">
+        <property name="quarterService" ref="jokeServiceImpl"></property>
+    </bean>
+
+
 </beans>

@@ -1,6 +1,7 @@
 package utils;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ArithUtils {
     /**
@@ -20,10 +21,10 @@ public class ArithUtils {
      * @param values 值几何
      * @return 累加的和
      */
-    public static double add(double[] values){
+    public static double add(List<Double> values){
         double sum = 0;
-        for (int i = 0; i < values.length; i++) {
-            double value = values[i];
+        for (int i = 0; i < values.size(); i++) {
+            double value = values.get(i);
             BigDecimal b1 = new BigDecimal(Double.toString(sum));
             BigDecimal b2 = new BigDecimal(Double.toString(value));
             sum = b1.add(b2).doubleValue();
@@ -31,6 +32,7 @@ public class ArithUtils {
 
         return sum;
     }
+
 
 
     /**

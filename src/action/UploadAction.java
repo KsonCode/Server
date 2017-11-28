@@ -1,10 +1,10 @@
 package action;
 
-import bean.UserEntity;
 import com.opensymphony.xwork2.Action;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.query.Query;
+import pojo.UserEntity;
 import service.UserImpl;
 import utils.Utils;
 
@@ -144,7 +144,7 @@ public class UploadAction implements Action {
                 query.setParameter("uid", Long.parseLong(uid));
                 UserEntity userEntity = (UserEntity) query.list().get(0);
 //                UserEntity userEntity = (UserEntity) getUser().getSf().openSession().createQuery("from UserEntity where uid = '" + uid + "'").list().get(0);
-                userEntity.setIcon("http://120.27.23.105/images/" + filename);
+                userEntity.setIcon("https://www.zhaoapi.cn/images/" + filename);
                 user.update(userEntity);
                 jsonData.put("code", "0");
                 jsonData.put("msg", "文件上传成功");

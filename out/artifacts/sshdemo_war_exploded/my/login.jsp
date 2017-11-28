@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,7 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0036)http://120.27.23.105/my/login.jsp -->
+<!-- saved from url=(0036)https://www.zhaoapi.cn/my/login.jsp -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=GBK">
@@ -124,46 +125,47 @@
 <div id="top" class="regtop">
     <div class="wid wid2">
         <div id="logo">
-            <a href="http://120.27.23.105/">找数据</a>
+            <a href="https://www.zhaoapi.cn/">找数据</a>
         </div>
-        <div id="rlogoright"><a href="http://120.27.23.105/my/login.jsp">登录</a> <span>|</span> <a
-                href="http://120.27.23.105/my/reg.jsp">注册</a></div>
+        <div id="rlogoright"><a href="https://www.zhaoapi.cn/my/login.jsp">登录</a> <span>|</span> <a
+                href="https://www.zhaoapi.cn/my/reg.jsp">注册</a></div>
         <div class="clearfix"></div>
     </div>
 </div>
 <div class="wid wid2">
     <div id="regbox">
         <div id="regleft">
-            <a href="http://120.27.23.105/api/sms/" target="_blank"><img src="./js/adlogin.jpg"></a>
+            <a href="https://www.zhaoapi.cn/api/sms/" target="_blank"><img src="./js/adlogin.jpg"></a>
         </div>
         <div id="regright">
             <h1>欢迎登录找数据</h1>
-            <form>
-                <div class="formline">
-                    <div class="labelright"><input type="text" name="mobile" class="roundinput" id="mobile"
-                                                   placeholder="请输入手机号"></div>
+            <s:form action="ilogin"  method="POST">
+                <s:div class="formline">
+                    <s:div class="labelright"><input type="text" name="mobile" class="roundinput" id="mobile"
+                                                   placeholder="请输入手机号"></s:div>
                     <!--<div class="flhint" id="mobilehint"></div>-->
-                </div>
-                <div class="formline">
-                    <div class="labelright"><input type="password" class="roundinput" id="password" placeholder="请输入密码">
-                    </div>
+                </s:div>
+                <s:div class="formline">
+                    <s:div class="labelright"><s:password type="password" class="roundinput" name="password" id="password" placeholder="请输入密码"/></s:div>
                     <!--<div class="flhint" id="passwordhint"></div>-->
-                </div>
-                <div class="formline" id="autologinline">
-                    <label class="checkbox-group" id="checkboxgroup1">
-                        <input type="checkbox" name="autologin" value="1" checked="checked">
+                </s:div>
+                <s:div class="formline" id="autologinline">
+                    <s:label class="checkbox-group" id="checkboxgroup1">
+                        <s:checkbox value="true" fieldValue="1" name="defaultAddr" id="auto"/>
+                        <%--<input type="checkbox" name="autologin" value="1" checked="checked">--%>
                         <span>两周内自动登录</span>
-                    </label>
-                    <a href="http://120.27.23.105/my/forget.jsp" class="bluea" id="forgeta">忘记密码</a>
-                </div>
-                <div class="formline">
+                    </s:label>
+                    <s:a href="https://www.zhaoapi.cn/my/forget.jsp" class="bluea" id="forgeta">忘记密码</s:a>
+                </s:div>
+                <s:div class="formline">
                     <input type="hidden" name="fromurl" id="fromurl" value="">
-                    <input type="button" class="btn" id="regbtn" value="用户登录">
-                </div>
-                <div class="formline mcenter" id="regrbotline">
-                    还没有极速帐号？<a href="http://120.27.23.105/my/reg.jsp" class="bluea">立即注册</a>
-                </div>
-            </form>
+                    <s:submit class="btn" id="regbtn" value="用户登录"/>
+                </s:div>
+                <s:div class="formline mcenter" id="regrbotline">
+                    还没有极速帐号？<s:a href="https://www.zhaoapi.cn/my/reg.jsp" class="bluea">立即注册</s:a>
+                </s:div>
+            </s:form>
+
         </div>
         <div class="clearfix"></div>
     </div>

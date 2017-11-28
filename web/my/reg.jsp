@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0034)http://120.27.23.105/my/reg.jsp -->
+<!-- saved from url=(0034)https://www.zhaoapi.cn/my/reg.jsp -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=GBK">
@@ -124,10 +124,10 @@
 <div id="top" class="regtop">
     <div class="wid wid2">
         <div id="logo">
-            <a href="http://120.27.23.105/">找数据</a>
+            <a href="https://www.zhaoapi.cn/">找数据</a>
         </div>
-        <div id="rlogoright"><a href="http://120.27.23.105/my/login.jsp">登录</a> <span>|</span> <a
-                href="http://120.27.23.105/my/reg.jsp">注册</a></div>
+        <div id="rlogoright"><a href="https://www.zhaoapi.cn/my/login.jsp">登录</a> <span>|</span> <a
+                href="https://www.zhaoapi.cn/my/reg.jsp">注册</a></div>
         <div class="clearfix"></div>
     </div>
 </div>
@@ -163,7 +163,7 @@
                 <input type="button" class="btn" id="regbtn" value="马上注册">
             </div>
             <div class="formline mcenter" id="regrbotline">
-                已有找数据帐号？<a href="http://120.27.23.105/my/login.jsp" class="bluea">立即登录</a>
+                已有找数据帐号？<a href="https://www.zhaoapi.cn/my/login.jsp" class="bluea">立即登录</a>
             </div>
         </form>
     </div>
