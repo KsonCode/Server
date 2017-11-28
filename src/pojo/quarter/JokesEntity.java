@@ -13,6 +13,7 @@ public class JokesEntity {
     private Integer commentNum;
     private Timestamp createTime;
     private String content;
+    private String imgUrls;
 
     @Id
     @Column(name = "jid")
@@ -84,6 +85,16 @@ public class JokesEntity {
         this.content = content;
     }
 
+    @Basic
+    @Column(name = "img_urls")
+    public String getImgUrls() {
+        return imgUrls;
+    }
+
+    public void setImgUrls(String imgUrls) {
+        this.imgUrls = imgUrls;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,6 +109,7 @@ public class JokesEntity {
         if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
+        if (imgUrls != null ? !imgUrls.equals(that.imgUrls) : that.imgUrls != null) return false;
 
         return true;
     }
@@ -111,6 +123,7 @@ public class JokesEntity {
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
+        result = 31 * result + (imgUrls != null ? imgUrls.hashCode() : 0);
         return result;
     }
 }
